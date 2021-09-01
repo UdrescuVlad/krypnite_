@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from krypniteweb.templates import *
 
@@ -9,8 +9,8 @@ def viewProducts(request):
     return render(request, 'view_products.html')
 
 def doLogout(request):
-    if request.user.is_authenticated:
-        return redirect('login')
+    logout (request)
+    return render(request, 'login.html')
 
 def doLogin(request):
     if request.user.is_authenticated:
@@ -22,11 +22,11 @@ def doLogin(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, username+', welcome')
-                return redirect('products')
+                context = messages.success(request, username+', welcome')
+                return redirect('/krypnite/products')
             else:
-                messages.error(request, 'Username or password is incorrect.')
-                return render(request, 'login.html')
+                context = messages.error(request, 'Username or password is incorrect.')
+                return render(request, 'login.html', context)
         return render(request, 'login.html')
 
 def doRegister(request):
