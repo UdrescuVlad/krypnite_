@@ -14,7 +14,7 @@ def doLogout(request):
 
 def doLogin(request):
     if request.user.is_authenticated:
-        return redirect('products')
+        return redirect('/krypnite/products')
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
