@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from krypniteweb.models import Product
 from krypniteweb.templates import *
 
 # Create your views here.
 
 def viewProducts(request):
-    return render(request, 'view_products.html')
+    products = Product.objects.all()
+    return render(request, 'view_products.html', {'products':products})
 
 def doLogout(request):
     logout (request)
