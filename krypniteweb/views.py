@@ -12,7 +12,7 @@ def viewProducts(request):
 
 def doLogout(request):
     logout (request)
-    return render(request, 'login.html')
+    return redirect('/krypnite/login')
 
 def doLogin(request):
     if request.user.is_authenticated:
@@ -25,7 +25,7 @@ def doLogin(request):
             if user is not None:
                 login(request, user)
                 context = messages.success(request, username+', welcome')
-                return redirect('/krypnite/products')
+                return redirect('/krypnite/products', context)
             else:
                 context = messages.error(request, 'Username or password is incorrect.')
                 return render(request, 'login.html', context)

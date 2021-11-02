@@ -36,25 +36,21 @@
     .dropdown-toggle {
       outline: 0;
     }
-
-    .nav {
-      color: red;
-    }
   </style>
+
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      
-      <!-- <nav class="navbar navbar-light bg-light"> -->
+    
         <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none" href="/krypnite/products">
-          <img src="../static/K-Letter-PNG-Image-File.png" width="50" height="50" class="bi me-2" alt="logo krypnite in navbar">
+          <img src="../static/8744.png" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
           Krypnite
         </a>
-
-        
   
         <ul class="nav col-1 col-md-auto mb-3 justify-content-center mb-md-0">
           <li><a href="{% url 'products' %}" class="nav-link">Products</a></li>
           <li><a href="#" class="nav-link">Dashboard</a></li>
+          <li><a href="#" class="nav-link">Become a member!</a></li>
+          <li><a href="#" class="nav-link">Get me these!</a></li>
           
         </ul>
   
@@ -64,7 +60,6 @@
           </button>
           
         </div>
-      <!-- </nav> -->
 
       <script>
         function relocate_to_login_page()
@@ -72,11 +67,6 @@
           location.href = "{% url 'logout' %}"
         }
       </script>
-      
-      
-
-
-        
       </div>
     </header>
   </div>

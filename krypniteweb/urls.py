@@ -9,4 +9,4 @@ urlpatterns = [
     path('login/', views.doLogin, name='login'),
     path('logout/', views.doLogout, name='logout'),
     path('register/', views.doRegister, name='register'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

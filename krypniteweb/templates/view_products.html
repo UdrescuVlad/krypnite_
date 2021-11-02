@@ -1,31 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
-        <!-- <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-            <div class="my-3 p-3">
-                <h2 class="display-5">Another headline</h2>
-                <p class="lead">And an even wittier subheading.</p>
-            </div>
-            <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-        </div>
-        <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-            <div class="my-3 py-3">
-                <h2 class="display-5">Another headline</h2>
-                <p class="lead">And an even wittier subheading.</p>
-            </div>
-            <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-        </div>
-    </div> -->
     {% for product in products %}
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-            <h2 class="display-5">{{ product.product_name }}</h2>
-            <p class="lead">{{ product.description }}</p>
-            <p class="lead">{{ product.price }}</p>
-        </div>
-        <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-            <img src='static/log-out-outline.svg'>
+    <span>{{context}}</span>
+    <div class = "position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+            <div class="my-3 p-3">
+                <h2 class="display-5">{{ product.product_name }}</h2>
+                <p class="lead">{{ product.description }}</p>
+                <p class="lead">{{ product.price }}</p>
+                <p class="lead">{{ product.product_photo }}</p>
+                <img src="{{ product.product_photo.url }}" alt="image">
+            </div>
         </div>
     </div>
     {% endfor %}
