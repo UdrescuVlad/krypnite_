@@ -3,13 +3,13 @@
 {% block content %}
     {% for product in products %}
     <span>{{context}}</span>
-    <div class = "position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <!-- d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 -->
+    <div class = "position-relative overflow-hidden w-100 my-md-3 ps-md-3 text-center bg-light">
+        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
             <div class="my-3 p-3">
                 <h2 class="display-5">{{ product.product_name }}</h2>
                 <p class="lead">{{ product.description }}</p>
                 <p class="lead">{{ product.price }}</p>
-                <p class="lead">{{ product.product_photo }}</p>
                 <img src="{{ product.product_photo.url }}" alt="image">
             </div>
         </div>

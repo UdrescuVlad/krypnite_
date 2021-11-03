@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% csrf_token %}
+{{ wishlist_form }}
+
+<div class='let_me_enter'>
+    <button class="w-100 btn btn-primary" type="submit">Get me these!</button>
+</div>
+
+{% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from krypniteweb.models import Product
+from krypniteweb.forms import WishlistForm
 from krypniteweb.templates import *
 
 # Create your views here.
@@ -9,6 +10,17 @@ from krypniteweb.templates import *
 def viewProducts(request):
     products = Product.objects.all()
     return render(request, 'view_products.html', {'products':products})
+
+def becomeMember(request):
+    return render(request, 'become_member.html')
+
+def getWishlist(request):
+    context = {}
+    form = WishlistForm(request.POST)
+    if form.is_valid():
+        form.save()
+    context['wishlist_form'] = form
+    return render(request, 'get_wishlist.html', context)
 
 def doLogout(request):
     logout (request)
