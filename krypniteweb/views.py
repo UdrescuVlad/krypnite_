@@ -19,6 +19,7 @@ def getWishlist(request):
     form = WishlistForm(request.POST)
     if form.is_valid():
         form.save()
+        form = WishlistForm()
     context['wishlist_form'] = form
     return render(request, 'get_wishlist.html', context)
 

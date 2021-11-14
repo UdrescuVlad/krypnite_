@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% csrf_token %}
-{{ wishlist_form }}
-
-<div class='let_me_enter'>
-    <button class="w-100 btn btn-primary" type="submit">Get me these!</button>
-</div>
-
+{% load crispy_forms_tags %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container p-5">
+        <!-- <div class="input-group p-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+              {{ wishlist_form.name}}
+            </div>
+        </div> -->
+        {{ wishlist_form|crispy }}
+    </div>
+    <div class='let_me_enter'>
+        <button class="w-100 btn btn-primary" type="submit">Get me these!</button>
+    </div>
+</form>
 {% endblock %}
