@@ -19,6 +19,29 @@
         <link rel="icon" href="../static/8744.jpg" width="250" height="250">
         <meta name="theme-color" content="#0f8719">
         <style>
+            .message {
+                border-radius: 10px;
+                box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
+                color: white;
+                margin-bottom: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-bottom: 5px;
+                padding-top: 5px;
+                text-align: center;
+                width: 80%;
+            }
+
+            /*
+            * Give the various message types the correct colors
+            */
+            .message.success {
+                background-color: green;
+            }
+
+            .message.error {
+                background-color: #ec1111;
+            }
             .bd-placeholder-img {
               font-size: 1.125rem;
               text-anchor: middle;
@@ -83,9 +106,19 @@
 
     
     <main class="form-signin">
+    <div class="my-3 p-3">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        {{ context }}
+        
         <img class="mb-4" src="../static/8744.jpg" alt="logo krypnite log in page" width="250" height="250">
         <!-- <h1 class="h3 mb-3 fw-normal">Sign in</h1> -->
         
@@ -106,9 +139,12 @@
         <p class="mt-5 mb-3 text-muted">&copy;2021</p>
     </form>
     </main>
+    <script>
+        setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 </body>
 </html>

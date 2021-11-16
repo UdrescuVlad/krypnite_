@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    {% for product in products %}
-    <span>{{context}}</span>
-    <!-- d-md-flex flex-md-equal w-100 my-md-3 ps-md-3 -->
-    <div class = "position-relative overflow-hidden w-100 my-md-3 ps-md-3 text-center bg-light">
-        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-            <div class="my-3 p-3">
-                <h2 class="display-5">{{ product.product_name }}</h2>
-                <p class="lead">{{ product.description }}</p>
-                <p class="lead">{{ product.price }}</p>
-                <img src="{{ product.product_photo.url }}" alt="image">
-            </div>
+    <div class="my-3 p-3">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
-    {% endfor %}
+        <div class="card-columns">
+            {% for product in products %}
+            <div class="card">
+                <div class="card-body position-relative overflow-hidden my-md-3 text-center bg-light">
+                            <h2 class="card-title display-5">{{ product.product_name }}</h2>
+                            <p class="card-text lead">{{ product.description }}</p>
+                            <p class="card-text lead">{{ product.price }}</p>
+                            <!-- <img style='height: 100%; width: 100%; object-fit: contain' src="{{ product.product_photo.url }}" alt="image"> -->
+                </div>
+                <img class="card-image-bottom" style='height: auto; max-width: 100%; object-fit: contain ' src="{{ product.product_photo.url }}" alt="image">
+            </div>
+            {% endfor %}
+        </div>
+    <script>
+        setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
+    </script>
 {% endblock %}
