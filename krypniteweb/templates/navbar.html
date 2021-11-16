@@ -38,25 +38,23 @@
     }
   </style>
 
-  <div class="container p-5">
+  <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    
-        <a class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none" href="/krypnite/products">
-          <img src="../static/8744.png" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
-          Krypnite
-        </a>
+        
+      <a class="d-flex align-items-center col-md-auto text-dark text-decoration-none" href="/krypnite/products">
+        <img src="../static/8744.png" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
+      </a>
   
-        <ul class="nav col-1 col-md-auto mb-3 justify-content-center mb-md-0">
-          <li><a href="{% url 'products' %}" class="nav-link">Products</a></li>
-          <li><a href="#" class="nav-link">Dashboard</a></li>
-          <li><a href="{% url 'membership' %}" class="nav-link">Membership</a></li>
-          <li><a href="{% url 'wishlist' %}" class="nav-link">Wishlist</a></li>
-          
-        </ul>
+      <ul class="nav col-md-auto justify-content-center">
+        <li><a href="{% url 'products' %}" class="nav-link">Products</a></li>
+        <li><a href="#" class="nav-link">Dashboard</a></li>
+        <li><a href="{% url 'membership' %}" class="nav-link">Membership</a></li>
+        <li><a href="{% url 'wishlist' %}" class="nav-link">Wishlist</a></li>
+
         <button type="button" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
           <ion-icon name="log-out-outline">Logout</ion-icon>
         </button>
-
+      </ul>
       <script>
         function relocate_to_login_page()
         {

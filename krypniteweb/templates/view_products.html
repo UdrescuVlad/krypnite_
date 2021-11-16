@@ -9,19 +9,20 @@
         </div>
         {% endif %}
     </div>
+    <div class="container">
         <div class="card-columns">
             {% for product in products %}
-            <div class="card">
+            <div class="card rounded mx-auto">
                 <div class="card-body position-relative overflow-hidden my-md-3 text-center bg-light">
-                            <h2 class="card-title display-5">{{ product.product_name }}</h2>
-                            <p class="card-text lead">{{ product.description }}</p>
-                            <p class="card-text lead">{{ product.price }}</p>
-                            <!-- <img style='height: 100%; width: 100%; object-fit: contain' src="{{ product.product_photo.url }}" alt="image"> -->
+                    <h2 class="card-title">{{ product.product_name }}</h2>
+                    <p class="card-text lead">{{ product.description }}</p>
+                    <p class="card-text ">{{ product.price }}</p>
                 </div>
-                <img class="card-image-bottom" style='height: auto; max-width: 100%; object-fit: contain ' src="{{ product.product_photo.url }}" alt="image">
+                <img class="card-image-bottom img-fluid" style='height: auto; max-width: 100%; object-fit: contain ' src="{{ product.product_photo.url }}" alt="image">
             </div>
             {% endfor %}
         </div>
+    </div>
     <script>
         setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
     </script>
