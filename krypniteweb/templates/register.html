@@ -16,28 +16,28 @@
         <h1>Registration page</h1>
     </div>
       
-    <main class="form-signin">
-        <div class="my-3 p-3">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p class="message {{ message.tags }}">{{ message }}</p>
-                {% endfor %}
+        <main class="form-signin">
+            <div class="my-3 p-3">
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-    
-        {% load crispy_forms_tags %}
-        <form action="{% url 'register' %}" method="POST">
-            {% csrf_token %}
-            <div class="container mb-5">
-                {{ registration_form|crispy }}
-            </div>
-            <div class='let_me_enter'>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
-            </div>
-        </form>
-    </main>
+        
+            {% load crispy_forms_tags %}
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <div class="container mb-5">
+                    {{ registration_form|crispy }}
+                </div>
+                <div class='text-center'>
+                    <button class="btn btn-outline-danger btn-lg" type="submit">Register</button>
+                </div>
+            </form>
+        </main>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

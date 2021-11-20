@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
-from krypniteweb.models import Product
+from krypniteweb.models import Product, RegistrationModel
 from krypniteweb.forms import WishlistForm, RegistrationModelForm
 from krypniteweb.templates import *
 from django.contrib.auth.decorators import login_required
@@ -50,9 +50,14 @@ def doLogin(request):
 User = get_user_model()
 def doRegister(request):
     context = {}
-    form = RegistrationModelForm(request.POST)
+    form = RegistrationModelForm(request.POST or None)
     if form.is_valid():
         print(form.cleaned_data)
-        User.objects.create_user()
+        name = form.cleaned_data.get("name")
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        new_user = User.objects.create_user(name, email, password)
+        form = RegistrationModelForm()
+        print(new_user)
     context['registration_form'] = form
     return render(request, 'register.html', context)
