@@ -4,7 +4,7 @@
             Krypnite
         </title>
         
-<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
@@ -102,17 +102,16 @@
               @include media-breakpoint-only(lg) {
                 column-count: 5;
               }
-              @include media-breakpoint-only(xl) {
-                column-count: 5;
-              }
             }
           </style>
           <link href="headers.css" rel="stylesheet">
     </head>
     <body>
       {% include 'navbar.html' %}
-      {% block content %}   
+      <!-- {% if request.user.is_authenticated %} -->
+      {% block content %}
       {% endblock %}
+      {% endif %}
       <script>
         setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
       </script>

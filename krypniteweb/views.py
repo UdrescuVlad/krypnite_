@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user_model
+from django.contrib.auth.models import User
 from django.contrib import messages
 from krypniteweb.models import Product
-from krypniteweb.forms import WishlistForm
+from krypniteweb.forms import WishlistForm, RegistrationModelForm
 from krypniteweb.templates import *
 from django.contrib.auth.decorators import login_required
 
@@ -11,6 +12,7 @@ def viewProducts(request):
     products = Product.objects.all()
     return render(request, 'view_products.html', {'products':products})
 
+@login_required
 def becomeMember(request):
     return render(request, 'become_member.html')
 
@@ -29,7 +31,6 @@ def doLogout(request):
     return redirect('/krypnite/login')
 
 def doLogin(request):
-    context = {}
     if request.user.is_authenticated:
         return redirect('/krypnite/products/')
     else:
@@ -46,5 +47,12 @@ def doLogin(request):
                 return render(request, 'login.html')
         return render(request, 'login.html')
 
+User = get_user_model()
 def doRegister(request):
-    return render(request, 'register.html')
+    context = {}
+    form = RegistrationModelForm(request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        User.objects.create_user()
+    context['registration_form'] = form
+    return render(request, 'register.html', context)

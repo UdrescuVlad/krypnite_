@@ -15,3 +15,8 @@ class Wishlist(models.Model):
     phone = models.CharField(validators=[phone_regex], max_length=12, blank=True)
     description = models.TextField(max_length=200)
     estimation_time = models.DecimalField(max_digits=6, decimal_places=2)
+
+class RegistrationModel(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+    password = models.CharField(max_length=50)

@@ -5,7 +5,7 @@
             Krypnite
         </title>
         
-<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
@@ -106,38 +106,36 @@
 
     
     <main class="form-signin">
-    <div class="my-3 p-3">
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <p class="message {{ message.tags }}">{{ message }}</p>
-            {% endfor %}
+        <div class="my-3 p-3">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
-    
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
         
-        <img class="mb-4" src="../static/8744.jpg" alt="logo krypnite log in page" width="250" height="250">
-        <!-- <h1 class="h3 mb-3 fw-normal">Sign in</h1> -->
-        
-        <br>
-        <div class="form-floating">
-            <input type="username" class="form-control" id="floatingInput" placeholder="Username" name="username">
-        </div>
-        <br>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        </div>
-
-        <br><br>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
-        <br><br>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            
+            <img class="mb-4" src="../static/8744.jpg" alt="logo krypnite log in page" width="250" height="250">
+            <!-- <h1 class="h3 mb-3 fw-normal">Sign in</h1> -->
+            
+            <br>
+            <div class="form-floating">
+                <input type="username" class="form-control" id="floatingInput" placeholder="Username" name="username">
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            </div>
+            <br><br>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
+            <br><br>
+        </form>
         <a href="{% url 'register' %}" class="btn btn-outline-dark btn-sm" role="button">I don't have an account</a>
-
         <p class="mt-5 mb-3 text-muted">&copy;2021</p>
-    </form>
     </main>
     <script>
         setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
