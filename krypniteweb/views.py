@@ -9,8 +9,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def viewProducts(request):
-    products = Product.objects.all()
-    return render(request, 'view_products.html', {'products':products})
+    query_set = Product.objects.all()
+    context={
+        'products':query_set
+    }
+    return render(request, 'view_products.html', context)
 
 @login_required
 def becomeMember(request):

@@ -108,10 +108,8 @@
     </head>
     <body>
       {% include 'navbar.html' %}
-      <!-- {% if request.user.is_authenticated %} -->
       {% block content %}
       {% endblock %}
-      {% endif %}
       <script>
         setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
       </script>
