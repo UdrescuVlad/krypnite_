@@ -34,7 +34,6 @@ def viewDetailedProduct(request, id):
     return render(request, 'view_detail_product.html', context)
 
 def viewDetailedProductBySlug(request, slug):
-    # instance = get_object_or_404(Product, slug=slug)
     try:
         instance = Product.objects.get(slug=slug)
     except Product.DoesNotExist:
