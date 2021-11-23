@@ -1,3 +1,5 @@
+from django.db.models import query
+from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.models import User
@@ -26,6 +28,22 @@ class ViewDetailedProduct(DetailView):
 
 def viewDetailedProduct(request, id):
     instance = get_object_or_404(Product, id=int(id))
+    context={
+        'object':instance
+    }
+    return render(request, 'view_detail_product.html', context)
+
+def viewDetailedProductBySlug(request, slug):
+    # instance = get_object_or_404(Product, slug=slug)
+    try:
+        instance = Product.objects.get(slug=slug)
+    except Product.DoesNotExist:
+        raise Http404("There is nothing to see here...")
+    except Product.MultipleObjectsReturned:
+        query_set = Product.objects.filter(slug=slug)
+        instance = query_set.first
+    except:
+        raise Http404("Fall back to safe zone!")
     context={
         'object':instance
     }
