@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.views.generic import DetailView
 from krypniteweb.models import Product, RegistrationModel
 from krypniteweb.forms import WishlistForm, RegistrationModelForm
 from krypniteweb.templates import *
@@ -14,6 +15,21 @@ def viewProducts(request):
         'products':query_set
     }
     return render(request, 'view_products.html', context)
+
+class ViewDetailedProduct(DetailView):
+    query_set = Product.objects.all()
+    template_view = "templates/view_detail_product.html"
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewDetailedProduct, self).get_context_data(*args, **kwargs)
+        print(context)
+        return context
+
+def viewDetailedProduct(request, id):
+    instance = get_object_or_404(Product, id=int(id))
+    context={
+        'object':instance
+    }
+    return render(request, 'view_detail_product.html', context)
 
 @login_required
 def becomeMember(request):
