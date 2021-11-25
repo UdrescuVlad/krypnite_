@@ -14,7 +14,9 @@
             {% for product in products %}
             <div class="card rounded mx-auto">
                 <div class="card-body position-relative overflow-hidden my-md-3 text-center bg-light border-radius: 20%">
-                    <h2 class="card-title">{{ product.product_name }}</h2>
+                    <h2 class="card-title">
+                        <a href="{{product.get_absolute_url}}">{{ product.product_name }}</a>
+                    </h2>
                     <p class="card-text lead">{{ product.description }}</p>
                     <p class="card-text ">
                         <button type="button" class="btn btn-outline-danger">

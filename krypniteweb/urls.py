@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
     path('products/', views.viewProducts, name='products'),
     # re_path(r'^product/(?P<id>\d+)/', views.viewDetailedProduct, name='product'),
-    re_path(r'^product/(?P<slug>[\w-]+)/', views.viewDetailedProductBySlug, name='product'),
+    re_path(r'^products/(?P<slug>[\w-]+)/', views.viewDetailedProductBySlug, name='product'),
     path('login/', views.doLogin, name='login'),
     path('register/', views.doRegister, name='register'),
     path('logout/', views.doLogout, name='logout'),
