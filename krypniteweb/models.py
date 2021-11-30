@@ -12,7 +12,7 @@ class Product(models.Model):
     description = models.TextField(max_length=200)
     product_photo = models.ImageField(null=True, blank=True, upload_to="images/")
     def get_absolute_url(self):
-        return f"{self.slug}"
+        return f'{self.slug}'
     def __str__(self):
         return self.product_name
 

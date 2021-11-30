@@ -44,7 +44,7 @@ def viewDetailedProductBySlug(request, slug):
     except:
         raise Http404("Fall back to safe zone!")
     context={
-        'object':instance
+        'product':instance
     }
     return render(request, 'view_detail_product.html', context)
 

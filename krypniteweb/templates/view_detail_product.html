@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{object.price}}
+    <div class="container mb-5">
+        <div class="card rounded mx-auto">
+            <p class="lead">
+                {{product.product_name}}
+                <br>
+                <br>
+                <br>
+            </p>
+            <img class="card-image-center img-fluid" style='height: 40%; max-width: 40%; object-fit: contain ' src="{{ product.product_photo.url }}" alt="image">
+        </div>
+    </div>
+    
 {% endblock %}
