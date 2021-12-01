@@ -53,14 +53,11 @@
           <li><a href="{% url 'wishlist' %}" class="nav-link">Wishlist</a></li>
 
           
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button type="button" class="btn btn-outline-primary">Search</button>
-          </form>
+          {% include 'utils/search_form_util.html' %}
 
-            <button type="button" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
-              <ion-icon name="log-out-outline">Logout</ion-icon>
-            </button>
+          <button type="button" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
+            <ion-icon name="log-out-outline">Logout</ion-icon>
+          </button>
           
         </ul>
 
