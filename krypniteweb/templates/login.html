@@ -114,7 +114,7 @@
             {% endif %}
         </div>
         
-        <form action="{% url 'login' %}" method="POST">
+        <form action="{% url 'krypnite:login' %}" method="POST">
             {% csrf_token %}
             
             <img class="mb-4" src='{% static "8744.png"%}'  alt="logo krypnite log in page" width="250" height="250">
@@ -132,7 +132,7 @@
             <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
             <br><br>
         </form>
-        <a href="{% url 'register' %}" class="btn btn-outline-dark btn-sm" role="button">I don't have an account</a>
+        <a href="{% url 'krypnite:register' %}" class="btn btn-outline-dark btn-sm" role="button">I don't have an account</a>
         <p class="mt-5 mb-3 text-muted">&copy;2021</p>
     </main>
     <script>

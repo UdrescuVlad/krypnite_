@@ -28,7 +28,7 @@
             </div>
         
             {% load crispy_forms_tags %}
-            <form action="{% url 'register' %}" method="POST">
+            <form action="{% url 'krypnite:register' %}" method="POST">
                 {% csrf_token %}
                 <div class="container mb-5">
                     {{ registration_form|crispy }}
