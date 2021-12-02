@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from krypniteweb.models import Product
+from django.db.models import Q
 
 @login_required
 def searchViewByProduct(request):
@@ -8,7 +9,8 @@ def searchViewByProduct(request):
     get_q = request.GET.get('q', None)  # al 2-lea parametru este pentru valoarea default
     print(get_q)
     if get_q is not None:
-        query_set = Product.objects.filter(product_name__icontains=get_q)
+        multiple_search = Q(product_name__icontains=get_q) | Q(description__icontains=get_q)
+        query_set = Product.objects.filter(multiple_search).distinct()  # folosim distinct ca in cazul in care multiple_search returneaza acelasi produs de 2 ori sa il ia doar o data
     else:
         query_set = Product.objects.all()
     

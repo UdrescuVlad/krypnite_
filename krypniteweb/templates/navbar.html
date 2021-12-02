@@ -39,34 +39,37 @@
   </style>
   {% load static %}
   {% if request.user.is_authenticated %}
-  <div class="container-fluid">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a class="navbar-brand d-flex align-items-center col-md-auto text-dark text-decoration-none" href="/krypnite/products">
-          <img src="{% static '8744.jpg' %}" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
-          Krypnite
-        </a>
-    
-        <ul class="nav col-md-auto justify-content-center">
-          <li><a href="{% url 'products' %}" class="nav-link">Products</a></li>
-          <li><a href="#" class="nav-link">Recently Purchased</a></li>
-          <li><a href="{% url 'membership' %}" class="nav-link">Membership</a></li>
-          <li><a href="{% url 'wishlist' %}" class="nav-link">Wishlist</a></li>
-
-          
-          {% include 'utils/search_form_util.html' %}
-
-          <button type="button" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
-            <ion-icon name="log-out-outline">Logout</ion-icon>
-          </button>
-          
-        </ul>
-
-      <script>
-        function relocate_to_login_page()
-        {
-          location.href = "{% url 'logout' %}"
-        }
-      </script>
-    </header>
-  </div>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid-nav">
+      <header class="d-flex align-items-center">
+          <a class="navbar-brand d-flex align-items-center text-dark" href='{% url "krypnite:products" %}'>
+            <img src="{% static '8744.png' %}" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
+            Krypnite
+          </a>
+      
+          <ul class="nav col-md-auto">
+            <li><a href="{% url 'krypnite:products' %}" class="nav-link">Products</a></li>
+            <!-- <li><a href="#" class="nav-link">Recently Purchased</a></li> -->
+            <li><a href="{% url 'krypnite:membership' %}" class="nav-link">Membership</a></li>
+            <li><a href="{% url 'krypnite:wishlist' %}" class="nav-link">Wishlist</a></li>
+  
+            
+            {% include 'utils/search_form_util.html' %}
+  
+            <button type="button" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
+              <ion-icon name="log-out-outline">Logout</ion-icon>
+            </button>
+            
+          </ul>
+  
+        <script>
+          function relocate_to_login_page()
+          {
+            location.href = "{% url 'krypnite:logout' %}"
+          }
+        </script>
+      </header>
+    </div>
+  </nav>
+  
   {% endif %}
