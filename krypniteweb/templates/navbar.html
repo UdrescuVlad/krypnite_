@@ -40,7 +40,7 @@
   {% load static %}
   {% if request.user.is_authenticated %}
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- <div class="d-flex justify-content-center"> -->
+
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
               <ul class="nav mr-auto">
                 <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:products' %}" class="nav-link">Products</a></li>
@@ -49,16 +49,13 @@
                 <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:wishlist' %}" class="nav-link">Wishlist</a></li>
               </ul>
             </div>
-          <!-- </div> -->
-          <!-- <div class="d-flex justify-content-center"> -->
+
             <div class="mx-auto order-0 order-md-1 position-relative">
               <a class="navbar-brand d-flex align-items-center" href='{% url "krypnite:products" %}'>
                 <img src="{% static '8744.png' %}" width="100" height="100" class="bi me-2" alt="logo krypnite in navbar">
               </a>
             </div>
-          <!-- </div> -->
 
-          <!-- <div class="d-flex justify-content-end"> -->
             <div class="navbar-collapse collapse w-100 order-3 order-md-2 dual-collapse2">
               <ul class="nav ml-auto">
                 {% include 'utils/search_form_util.html' %}
@@ -67,14 +64,15 @@
                 </button>
               </ul>
             </div>
-          <!-- </div> -->
 
+  </nav>
+  
         <script>
           function relocate_to_login_page()
           {
             location.href = "{% url 'krypnite:logout' %}"
           }
         </script>
-  </nav>
+ 
   
   {% endif %}
