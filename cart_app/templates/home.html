@@ -3,5 +3,45 @@
 {% block content %}
 
 <h1>Cart home page</h1>
+{% if cart.products.exists %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for product in cart.products.all %}    
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>
+                    <a href="{{product.get_absolute_url}}">{{product.product_name}}</a>
+                    <form method = 'POST' action='{% url "cart:update" %}' class = 'form-inline my-2 my-lg-2'> {% csrf_token %}
+                        <input type='hidden' name='product_id' value='{{ product.id }}'/> 
+                        <button type='submit' style='padding:0px' class='btn btn-outline-danger'>Remove?</button>
+                    </form>
+                </td>
+                <td>{{product.price}}</td>
+            </tr>
+            {% endfor %}
 
+            <tr>
+                <td>
+                    <b> Subtotal: {{ cart.subtotal }} </b>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b> Total: {{ cart.total }} </b>
+                </td>
+            </tr>
+        
+        </tbody>
+    </table>
+{% else %}
+<h1>Cart is empty!</h1>
+{% endif %}
 {% endblock %}
