@@ -44,7 +44,7 @@
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
               <ul class="nav mr-auto">
                 <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:products' %}" class="nav-link">Products</a></li>
-                <li><a href="#" class="nav-link">Recently Purchased</a></li>
+                <li class = "nav-item"><a class="nav-link" href="{% url 'cart:home' %}" >Cart</a></li>
                 <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:membership' %}" class="nav-link">Membership</a></li>
                 <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:wishlist' %}" class="nav-link">Wishlist</a></li>
               </ul>
@@ -57,23 +57,20 @@
             </div>
 
             <div class="navbar-collapse collapse w-100 order-3 order-md-2 dual-collapse2">
-                
                 <ul class="nav ml-auto">
                   {% include 'utils/search_form_util.html' %}
                   <button type="submit" class="btn btn-outline-primary" onclick="relocate_to_login_page()">
-                    <ion-icon name="log-out-outline">Logout</ion-icon>
+                    <ion-icon size="small" name="log-out-outline">Logout</ion-icon>
                   </button>
                 </ul>
             </div>
-
   </nav>
-  
-        <script>
-          function relocate_to_login_page()
-          {
-            location.href = "{% url 'krypnite:logout' %}"
-          }
-        </script>
+<script>
+
+function relocate_to_login_page() {
+  location.href = "{% url 'krypnite:logout' %}"
+}
+</script>
  
   
   {% endif %}
