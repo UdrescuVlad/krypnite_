@@ -9,7 +9,7 @@
         </div>
         {% endif %}
     </div>
-    {% if request.GET.q %}
+    {% if request.GET.q is not NULL%}
     <div class="col-12 mb-3">
         Searches for <b>{{request.GET.q}}</b>
     </div>

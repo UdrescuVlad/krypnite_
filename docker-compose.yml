@@ -32,4 +32,3 @@ services:
         PGADMIN_LISTEN_PORT: 80
       ports:
         - "5050:80"
-        

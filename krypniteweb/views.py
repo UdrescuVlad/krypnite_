@@ -109,6 +109,7 @@ User = get_user_model()
 def doRegister(request):
     context = {}
     form = RegistrationModelForm(request.POST or None)
+
     if form.is_valid():
         print(form.cleaned_data)
         name = form.cleaned_data.get("name")
@@ -117,5 +118,6 @@ def doRegister(request):
         new_user = User.objects.create_user(name, email, password)
         form = RegistrationModelForm()
         print(new_user)
+
     context['registration_form'] = form
     return render(request, 'register.html', context)

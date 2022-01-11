@@ -1,6 +1,7 @@
 from django import forms
 from django.db.models import fields
 from django.contrib.auth import get_user_model
+from django.forms import widgets
 from krypniteweb.models import Wishlist, RegistrationModel
 
 User = get_user_model()
@@ -29,3 +30,6 @@ class RegistrationModelForm(forms.ModelForm):
     class Meta:
         model = RegistrationModel
         fields = "__all__"
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
