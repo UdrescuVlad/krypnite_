@@ -12,7 +12,7 @@ from krypniteweb.templates import *
 
 from django.contrib.auth.decorators import login_required
 
-@login_required
+# @login_required
 def viewProducts(request):
     query_set = Product.objects.all()
     cart_obj, new_or_not = Cart.objects.new_or_get(request)

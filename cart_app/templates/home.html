@@ -3,14 +3,19 @@
 {% block content %}
 
 <h1>Cart home page</h1>
+<div class="btn-group">
+    <a href="/krypnite/products" class="btn btn-outline-danger active">
+        Back to products products page
+    </a>
+</div>
 {% if cart.products.exists %}
     <table class="table">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+            </tr>
         </thead>
         <tbody>
             {% for product in cart.products.all %}    
@@ -38,7 +43,6 @@
                     <b> Total: {{ cart.total }} </b>
                 </td>
             </tr>
-        
         </tbody>
     </table>
 {% else %}

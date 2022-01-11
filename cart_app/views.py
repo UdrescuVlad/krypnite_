@@ -5,12 +5,12 @@ from .models import Cart, cart_pre_save_receiver
 from krypniteweb.models import Product, product_pre_save_receiver
 from django.contrib.auth.decorators import login_required
 
-@login_required
+# @login_required
 def cart_home(request):
     cart, new_obj = Cart.objects.new_or_get(request)
     return render(request, "home.html", {'cart':cart})
 
-@login_required
+# @login_required
 def cart_update(request):
     product_id = request.POST.get('product_id')
     if product_id is not None:
