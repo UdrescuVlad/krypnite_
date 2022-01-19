@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'krypniteweb',
     'search_app',
     'cart_app',
+    'order_checkout_app',
     'crispy_forms',
     'crispy_bootstrap5'
 ]

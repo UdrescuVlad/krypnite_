@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from cart_app.models import Cart
 from krypniteweb.models import Product
 from django.db.models import Q
 
@@ -16,5 +17,7 @@ def searchViewByProduct(request):
     
     context={
         'products':query_set
+        
     }
+    print()
     return render(request, 'view_products_on_search.html', context)
