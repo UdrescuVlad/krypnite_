@@ -2,6 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Cart, cart_pre_save_receiver
+from order_checkout_app.models import OrderCheckout
 from krypniteweb.models import Product, product_pre_save_receiver
 from django.contrib.auth.decorators import login_required
 
@@ -17,7 +18,7 @@ def cart_update(request):
         try:
             product_obj = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
-            print("It happens the product is not found! We're sorry.\n\tWe will refund you with one month for free!")
+            print("It happens that the product is not found! We're sorry.\n\tWe will refund you with one month for free!")
             redirect("cart:home")
         cart_obj, new_obj = Cart.objects.new_or_get(request)
 
@@ -27,3 +28,11 @@ def cart_update(request):
             cart_obj.products.add(product_obj)
         request.session['no_of_items']=cart_obj.products.count()
     return redirect("cart:home")
+
+def checkout_redirect(request):
+    cart_obj, new_cart = Cart.objects.new_or_get(request)
+    if new_cart or cart_obj.products.count() == 0:
+        return redirect("cart:home")
+    else:
+        order_obj, created = OrderCheckout.objects.get_or_create(cart=cart_obj)
+    return render(request, "checkout.html", {'order': order_obj})

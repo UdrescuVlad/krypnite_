@@ -1,7 +1,9 @@
+from decimal import Decimal
+import math
 from django.db import models
 from django.conf import settings
 from krypniteweb.models import Product
-from django.db.models.signals import pre_save,m2m_changed
+from django.db.models.signals import pre_save,m2m_changed,post_save
 
 class CartManager(models.Manager):
     def new_or_get(self, request):
@@ -44,17 +46,16 @@ def cart_m2m_receiver(sender, instance, action, *args, **kwargs):
     if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
         products_cart = instance.products.all()
         total=0
-
         for product in products_cart:
             total = total + product.price
-        
         instance.subtotal = total
-        
         instance.save()
+
 m2m_changed.connect(cart_m2m_receiver, sender=Cart.products.through)
 
 #   I want that total to be also updated
 def cart_pre_save_receiver(sender, instance, *args, **kwargs):
     if instance.total != instance.subtotal:
         instance.total = instance.subtotal
+
 pre_save.connect(cart_pre_save_receiver, sender=Cart)

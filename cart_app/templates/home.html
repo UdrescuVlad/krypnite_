@@ -3,11 +3,13 @@
 {% block content %}
 
 <h1>Cart home page</h1>
+<br>
 <div class="btn-group">
     <a href="/krypnite/products" class="btn btn-outline-danger active">
         Back to products products page
     </a>
 </div>
+<br>
 {% if cart.products.exists %}
     <table class="table">
         <thead>
@@ -41,6 +43,12 @@
             <tr>
                 <td>
                     <b> Total: {{ cart.total }} </b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td>
+                    <a class='btn btn-lg btn-success' href = '{% url "cart:checkout" %}'>Checkout page</a>
                 </td>
             </tr>
         </tbody>
