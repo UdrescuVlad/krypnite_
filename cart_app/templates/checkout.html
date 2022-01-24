@@ -2,19 +2,26 @@
 
 {% block content %}
 
+{% if billing_profile %}
+    <button>
+        Identify yourself
+        <a href="/krypnite/login?next=/cart/checkout"></a>
+    </button>
+{% else %}
 
-<h2>Checkout page</h2>
-<div class="btn-group">
-    <a href="/krypnite/products" class="btn btn-outline-danger active">
-        Back to products products page
-    </a>
-</div>
-<br><br>
-<h5>Cart total: {{order.cart.total}}</h5>
-<h5>Shipping total: {{order.shipping_total}}</h5>
+    <h2>Checkout page</h2>
+    <div class="btn-group">
+        <a href="/krypnite/products" class="btn btn-outline-danger active">
+            Back to products products page
+        </a>
+    </div>
+    <br><br>
+    <h5>Cart total: {{order.cart.total}}</h5>
+    <h5>Shipping total: {{order.shipping_total}}</h5>
 
-<h2>Order Total: {{order.total}}</h2>
+    <h2>Order Total: {{order.total}}</h2>
 
+{% endif %}
 
 
 {% endblock %}

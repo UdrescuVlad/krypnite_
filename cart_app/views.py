@@ -35,4 +35,14 @@ def checkout_redirect(request):
         return redirect("cart:home")
     else:
         order_obj, created = OrderCheckout.objects.get_or_create(cart=cart_obj)
-    return render(request, "checkout.html", {'order': order_obj})
+    
+    billing_profile = None
+    if request.user.is_authenticated:
+        billing_profile = None
+
+    context={
+        'order': order_obj,
+        'billing_profile': billing_profile
+    }
+
+    return render(request, "checkout.html", context)

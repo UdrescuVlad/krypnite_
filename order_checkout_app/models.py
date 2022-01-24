@@ -24,7 +24,7 @@ class OrderCheckout(models.Model):
         return self.order_id
     
     def update_total(self):
-        self.total = self.cart.total + float(Decimal(self.shipping_total))
+        self.total = self.cart.total + Decimal(self.shipping_total)
         self.save()
         return self.total
     
