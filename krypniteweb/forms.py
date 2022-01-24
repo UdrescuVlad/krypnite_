@@ -12,7 +12,6 @@ class WishlistForm(forms.ModelForm):
         fields = "__all__"
 
 class RegistrationModelForm(forms.ModelForm):
-
     def clean_name(self):
         username = self.cleaned_data.get("name")
         query_set = User.objects.filter(username = username)

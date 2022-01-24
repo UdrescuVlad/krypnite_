@@ -2,6 +2,9 @@ from django.db.models import query
 from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, get_user_model
+from django.utils.http import is_safe_url
+#   https://www.kite.com/python/docs/django.utils.http.is_safe_url
+#   https://idocs.djangoproject.com/en/4.0/releases/1.8.10/ -> CVE-2016-2512: Malicious redirect and possible XSS attack via user-supplied redirect URLs containing basic auth¶
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import DetailView
@@ -48,7 +51,7 @@ class ViewDetailedProduct(DetailView):
         return instance
 
 
-# def viewDetailedProduct(request, id):
+#  def viewDetailedProduct(request, id):
 #     instance = get_object_or_404(Product, id=int(id))
 #     context={
 #         'object':instance
@@ -89,17 +92,26 @@ def doLogout(request):
     return redirect('/krypnite/login')
 
 def doLogin(request):
+    
     if request.user.is_authenticated:
         return redirect('/krypnite/products/')
     else:
+        next_get = request.GET.get('next')
+        next_post = request.POST.get('next')
+        next_ = next_get or next_post
         if request.method == 'POST':
             username1 = request.POST.get('username')
             password1 = request.POST.get('password')
             user = authenticate(request, username=username1, password=password1)
             if user is not None:
                 login(request, user)
-                messages.success(request, username1+', welcome')
-                return redirect('/krypnite/products/')
+                print(request.get_host())
+                if is_safe_url(next_, request.get_host()):
+                    print('------->>>>>>>>>>>'+next_)
+                    return redirect(next_)
+                else:
+                    messages.success(request, username1+', welcome')
+                    return redirect('/krypnite/products/')
             else:
                 messages.error(request, 'Username or password is incorrect.')
                 return render(request, 'login.html')
