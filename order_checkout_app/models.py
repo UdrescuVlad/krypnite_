@@ -1,6 +1,9 @@
 from decimal import Decimal
+from email.policy import default
 from django.db import models
 from django.db.models.signals import pre_save, post_save
+
+from billing_app.models import BillingProfile
 from .utils import unique_random_order_id
 from cart_app.models import Cart
 
@@ -14,11 +17,13 @@ ORDER_STATUS = (
 )
 
 class OrderCheckout(models.Model):
+    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=200, blank=True)
     cart = models.ForeignKey(Cart, null=True, blank=True, on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default='created', choices=ORDER_STATUS)
     shipping_total = models.DecimalField(default=1.99, max_digits=100, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.order_id
