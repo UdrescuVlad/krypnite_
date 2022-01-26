@@ -2,11 +2,23 @@
 
 {% block content %}
 
-{% if billing_profile %}
-    <button>
-        Identify yourself
-        <a href="/krypnite/login?next=/cart/checkout"></a>
+{% if not billing_profile %}
     </button>
+    <form action="{% url 'krypnite:login' %}" method="POST">
+        {% csrf_token %}
+        
+        <br>
+        <div class="form-floating">
+            <input type="username" class="form-control" id="floatingInput" placeholder="Username" name="username">
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        </div>
+        <br><br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
+        <br><br>
+    </form>
 {% else %}
 
     <h2>Checkout page</h2>

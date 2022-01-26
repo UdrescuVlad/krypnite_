@@ -1,6 +1,8 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
+from billing_app.models import BillingProfile
 from .models import Cart, cart_pre_save_receiver
 from order_checkout_app.models import OrderCheckout
 from krypniteweb.models import Product, product_pre_save_receiver
@@ -38,7 +40,7 @@ def checkout_redirect(request):
     
     billing_profile = None
     if request.user.is_authenticated:
-        billing_profile = None
+        billing_profile,billing_profile_created = BillingProfile.objects.get_or_create(user=request.user,email=request.user.email)
 
     context={
         'order': order_obj,
