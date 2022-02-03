@@ -2,38 +2,77 @@
 
 {% block content %}
 
-{% if not billing_profile %}
-    </button>
-    <form action="{% url 'krypnite:login' %}" method="POST">
-        {% csrf_token %}
-        
-        <br>
-        <div class="form-floating">
-            <input type="username" class="form-control" id="floatingInput" placeholder="Username" name="username">
-        </div>
-        <br>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-        </div>
-        <br><br>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
-        <br><br>
-    </form>
-{% else %}
+{%load static%}
 
-    <h2>Checkout page</h2>
-    <div class="btn-group">
-        <a href="/krypnite/products" class="btn btn-outline-danger active">
-            Back to products products page
-        </a>
+<div class="card" style="width: 60rem;margin: auto;background: white;position:center;border-radius: 1.5rem;box-shadow: 4px 3px 20px #3535358c;display:flex;flex-direction: row;">
+    <div class="leftside" style="background:white;width: 20rem;display: inline-flex;align-items: center;justify-content: center;border-top-left-radius: 1.5rem;border-bottom-left-radius: 1.5rem;">
+        <img src="{% static '8744.png' %}" width="200" height="200" class="bi me-2" alt="logo krypnite in navbar">
     </div>
-    <br><br>
-    <h5>Cart total: {{order.cart.total}}</h5>
-    <h5>Shipping total: {{order.shipping_total}}</h5>
-
-    <h2>Order Total: {{order.total}}</h2>
-
-{% endif %}
+    <div class="rightside" style="background-color: #ffffff;width: 35rem;border-bottom-right-radius: 1.5rem;border-top-right-radius: 1.5rem;padding: 1rem 2rem 3rem 3rem;">
+        {% if not billing_profile %}
+        <form action="{% url 'krypnite:login' %}" method="POST">
+            {% csrf_token %}
+            
+            <br>
+            <div class="form-floating">
+                <input type="username" class="form-control" id="floatingInput" placeholder="Username" name="username">
+            </div>
+            <br>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            </div>
+            <br><br>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
+            <br><br>
+        </form>
+        <div class="btn-group">
+            <a href="/krypnite/products" class="btn btn-outline-danger active">
+                Back to products products page
+            </a>
+        </div>
+        {% else %}
+            <b>ORDER ID: </b>{{order.order_id}}
+            <br>
+            <b>CART ID: </b> {{order.cart}}
+            <br>
+            <b>BILLING PROFILE: </b>{{order.billing_profile}}
+            <form action="">
+                <h2>Payment Information</h2>
+                <input type="text" class="inputbox" name="name" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Cardholder name"/>
+                <input type="number" class="inputbox" name="card_number" id="card_number" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Card number"/>
+                <select class="inputbox" name="card_type" id="card_type" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;">
+                  <option value="">--Select a Card Type--</option>
+                  <option value="Visa">Visa</option>
+                  <option value="RuPay">RuPay</option>
+                  <option value="MasterCard">MasterCard</option>
+                </select>
+                <div class="exp_and_cvv" style="display:flex;justify-content: space-between;padding-top: 0.6rem;">
+    
+                    <p class="exp" style="padding-right: 1rem;"></p>
+                    <input type="date" class="inputbox" name="exp_date" id="exp_date" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
+        
+                    <p class="cvv" style="padding:0 1rem;"></p>
+                    <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="CVV" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
+                </div>
+                
+                <button type="submit" class="button" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
+                border: none;
+                border-radius: 50px;
+                color: white;
+                font-weight: 400;
+                font-size: 1.2rem;
+                margin-top: 10px;
+                width:100%;
+                letter-spacing: .11rem;
+                outline:none;">Checkout</button>
+            </form>
+            <br><br>
+            <h6>Cart total: {{order.cart.total}}</h6>
+            <h6>Shipping total: {{order.shipping_total}}</h6>
+            <h2>Order Total: {{order.total}}</h2>
+        {% endif %}
+    </div>
+</div>
 
 
 {% endblock %}

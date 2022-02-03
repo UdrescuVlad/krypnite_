@@ -17,7 +17,7 @@ class BillingProfile(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
  
     def __str__(self):
-        return self.user
+        return self.email
 
 def post_save_user_created_receiver(sender, instance, created, *args, **kwargs):
     if created and instance.email:

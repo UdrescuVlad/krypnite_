@@ -18,16 +18,18 @@
         <meta name="theme-color" content="#0f8719">
         <style>
             .message {
+                text-align: left;
+                size: 1rem;
                 border-radius: 10px;
                 box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
                 color: white;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 margin-left: auto;
                 margin-right: auto;
                 padding-bottom: 5px;
                 padding-top: 5px;
                 text-align: center;
-                width: 80%;
+                width: 10px;
             }
 
             /*
@@ -96,7 +98,13 @@
 
             .btn-primary {
                 background-color: #ec1111 !important;
-            } 
+            }
+
+            .login-button:hover{
+                transform: scale(1.05) translateY(-3px);
+                box-shadow: 3px 3px 6px #38373785;
+            }
+
         </style>
         <link rel="stylesheet" href="signin.css">
     </head>
@@ -129,17 +137,26 @@
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
             </div>
             <br><br>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Let me enter</button>
+            <button class="w-100 btn btn-lg btn-primary login-button" type="submit" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            width:100%;
+            letter-spacing: .11rem;
+            outline:none;">Let me enter</button>
             <br><br>
         </form>
-        <a href="{% url 'krypnite:register' %}" class="btn btn-outline-dark btn-sm" role="button">I don't have an account</a>
+        <a href="{% url 'krypnite:register' %}" class="btn btn-dark btn-sm" role="button">I don't have an account</a>
         <br><br>
-        <a href="/krypnite/products" class="btn btn-outline-primary btn-sm" role="button">Get me to products page</a>
+        <a href="/krypnite/products" class="btn btn-outline btn-sm" role="button">Get me to products page</a>
 
         <p class="mt-5 mb-3 text-muted">&copy;2021</p>
     </main>
     <script>
-        setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
+        setTimeout(function() { $('.message').fadeIn('fast').fadeOut('fast');},3000);
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->

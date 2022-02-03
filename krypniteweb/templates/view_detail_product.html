@@ -1,26 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mb-5">
-        <div class="card rounded mx-auto">
-            <p class="lead">
-                {{product.product_name}}
-                <br>
-                <br>
-                <br>
-            </p>
-            <img class="card-image-center img-fluid" style='height: 40%; max-width: 40%; object-fit: contain ' src="{{ product.product_photo.url }}" alt="image">
-            <div>
-                <!-- should be moved in another html file: 'update_cart.html' -->
-                <form method='POST' action='{% url "cart:update" %}' class="form-inline my-2 my-lg-2"> {% csrf_token %}
-                    <input type='hidden' name='product_id' value='{{ product.id }}'/>
-                    {% if product in cart.products.all %}
-                        In cart <br><button type='submit' class='btn btn-link'>Remove?</button>
-                    {% else %}
-                        Add to cart <br><button type='submit' class='btn btn-success'>Ship me these</button>
-                    {% endif %}
-                </form> 
-            </div>
-        </div>
+    <br><br>
+    <div class="container-fluid">
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <img class="card-image img-fluid" style='max-height: auto; max-width: auto; display: inline-block; object-fit: contain; box-shadow: 0 5px 5px rgba(0, 0, 0, .2); border-radius: 0.5em;' src="{{ product.product_photo.url }}" alt="image">
+                    </td>
+                    <td>
+                        <h4 class="card-title" style="font-weight: 800; font-size: 1.5em;">
+                            <p>{{product.product_name}}</p>
+                        </h4>
+                        <div style="font-weight: 200; font-size: 1em;">Location:</div>{{product.location}}
+                        <br><br>
+                        <div style="font-weight: 500; font-size: 1.5em;">Description:</div>{{product.description}}
+                        <br><br>
+                        <div style="font-weight: 500; font-size: 1.5em;">Price:</div>$ {{product.price}}
+                        <br><br>
+                        <div>
+                            <!-- should be moved in another html file: 'update_cart.html' -->
+                            <form method='POST' action='{% url "cart:update" %}' class="form-inline my-2 my-lg-2"> {% csrf_token %}
+                                <input type='hidden' name='product_id' value='{{ product.id }}'/>
+                                {% if product in cart.products.all %}
+                                    <div style="font-weight: 200; font-size: 1em;">Already in cart.</div>
+                                    <br>
+                                    <button type='submit' class='btn btn-link'>Remove?</button>
+                                {% else %}
+                                    <div style="font-weight: 400; font-size: 1em;">Add to cart?</div>
+                                    <br>
+                                    <button type='submit' class='btn btn-success'>Ship me these!</button>
+                                {% endif %}
+                            </form> 
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     
 {% endblock %}

@@ -1,5 +1,4 @@
 from decimal import Decimal
-import math
 from django.db import models
 from django.conf import settings
 from krypniteweb.models import Product

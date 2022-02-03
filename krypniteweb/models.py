@@ -6,10 +6,11 @@ from django.db.models.signals import pre_save
 
 
 class Product(models.Model):
+    location = models.CharField(max_length=50, blank=True, null=True)
     product_name = models.CharField(max_length=50)
     slug = models.SlugField(blank=True, unique=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=1000)
     product_photo = models.ImageField(null=True, blank=True, upload_to="images/")
     def get_absolute_url(self):
         return f'/krypnite/products/{self.slug}'

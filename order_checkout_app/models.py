@@ -33,8 +33,8 @@ class OrderCheckout(models.Model):
         self.save()
         return self.total
     
-    class Meta:
-        unique_together = ('order_id','cart')
+    # class Meta:
+    #     unique_together = ('order_id','cart')
     #   https://www.queworx.com/django/django-get_or_create/
 
 #   generate order id - random and unique 

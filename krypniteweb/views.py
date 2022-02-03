@@ -15,12 +15,11 @@ from krypniteweb.templates import *
 
 from django.contrib.auth.decorators import login_required
 
-# @login_required
 def viewProducts(request):
-    query_set = Product.objects.all()
+    all_products = Product.objects.all()
     cart_obj, new_or_not = Cart.objects.new_or_get(request)
     context={
-        'products':query_set,
+        'products':all_products,
         'cart':cart_obj
     }
     return render(request, 'view_products.html', context)
@@ -92,7 +91,6 @@ def doLogout(request):
     return redirect('/krypnite/login')
 
 def doLogin(request):
-    
     if request.user.is_authenticated:
         return redirect('/krypnite/products/')
     else:
