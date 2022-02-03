@@ -36,25 +36,22 @@ def checkout_redirect(request):
     order_obj = None
     if new_cart or cart_obj.products.count() == 0:
         return redirect("cart:home")
-    # else:
-    #     order_obj,order_obj_created = OrderCheckout.objects.get_or_create(cart = cart_obj)
     billing_profile = None
     if request.user.is_authenticated:
         billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user=request.user,email=request.user.email)
-    #   ar trebui sa ne asiguram ca nu ca esxista un singur cos
-    #   de cumparaturi pe acest order, de aceea am creat 
-    #   field-ul de "active"
     else:
         redirect("krypnite:login")
 
     if billing_profile is not None:
+        # order_obj, order_obj_created = OrderCheckout.objects.new_or_get(billing_profile, order_obj)
         qs = OrderCheckout.objects.filter(billing_profile=billing_profile, cart=cart_obj, active=True)
         if qs.count() == 1:
             order_obj = qs.first()
         else:
-            old_order = OrderCheckout.objects.exclude(billing_profile=billing_profile).filter(cart=cart_obj, active=True)
-            if old_order.exists():
-                old_order.update(active = False)
+            #   am adaugat urm 3 linii la presave cart
+            # old_order = OrderCheckout.objects.exclude(billing_profile=billing_profile).filter(cart=cart_obj, active=True)
+            # if old_order.exists():
+            #     old_order.update(active = False)
             order_obj = OrderCheckout.objects.create(billing_profile=billing_profile, cart=cart_obj)
     context={
         'order': order_obj,

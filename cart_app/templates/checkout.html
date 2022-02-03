@@ -54,7 +54,13 @@
                     <p class="cvv" style="padding:0 1rem;"></p>
                     <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="CVV" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
                 </div>
-                
+                <br>
+                <div style="padding-left: 0.5rem">
+                    <h6>Cart total: {{order.cart.total}}</h6>
+                    <h6>Shipping total: {{order.shipping_total}}</h6>
+                    <h2>Order Total: {{order.total}}</h2>
+                </div>
+                <br>
                 <button type="submit" class="button" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
                 border: none;
                 border-radius: 50px;
@@ -64,12 +70,10 @@
                 margin-top: 10px;
                 width:100%;
                 letter-spacing: .11rem;
-                outline:none;">Checkout</button>
+                outline:none;">Pay order</button>
             </form>
             <br><br>
-            <h6>Cart total: {{order.cart.total}}</h6>
-            <h6>Shipping total: {{order.shipping_total}}</h6>
-            <h2>Order Total: {{order.total}}</h2>
+            
         {% endif %}
     </div>
 </div>
