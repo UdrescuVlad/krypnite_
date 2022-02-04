@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.searchViewByProduct, name='byProductName'),
+    path('category/', views.searchByCategoryProduct, name='byCategory'),
 ] 
 
 if settings.DEBUG:

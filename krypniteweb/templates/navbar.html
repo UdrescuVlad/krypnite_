@@ -46,11 +46,18 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               
-                <ul class="nav mr-auto">
+                <ul class="navbar nav mr-auto">
                   <li class = "nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{% url 'krypnite:products' %}" data-bs-toggle="dropdown">Products</a>
                     <div class="dropdown-menu dropdown-large">
-                      <a class="nav-link" href="{% url 'cart:home' %}" >Cart</a>
+                      <a class="nav-link" href="/search/category/?q=cars" >Cars</a>
+                      <a class="nav-link" href="/search/category/?q=cosmetics" >Cosmetics</a>
+                      <a class="nav-link" href="/search/category/?q=outlet" >Outlet</a>
+                      <a class="nav-link" href="/search/category/?q=jewerly" >Jewerly</a>
+                      <a class="nav-link" href="/search/category/?q=accesories" >Accesories</a>
+                      <a class="nav-link" href="/search/category/?q=toys" >Toys</a>
+                      <a class="nav-link" href="/search/category/?q=books" >Books</a>
+                      <a class="nav-link" href="/search/category/?q=gaming" >Gaming</a>
                     </div>
                   </li>
                   <li class = "nav-item"><a class="nav-link" href="{% url 'cart:home' %}" >Cart</a></li>

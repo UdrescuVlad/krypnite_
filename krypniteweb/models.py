@@ -4,6 +4,10 @@ from django.core.validators import RegexValidator
 from .utils import unique_slug_generator
 from django.db.models.signals import pre_save
 
+CATEGORY_CHOICES_PRODUCT = (
+    ("cars", "Cars"),
+    ("cosmetics","Cosmetics"),
+)
 
 class Product(models.Model):
     location = models.CharField(max_length=50, blank=True, null=True)
@@ -11,6 +15,7 @@ class Product(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField(max_length=1000)
+    category = models.CharField(max_length=25, choices=CATEGORY_CHOICES_PRODUCT, default='cars')
     product_photo = models.ImageField(null=True, blank=True, upload_to="images/")
     def get_absolute_url(self):
         return f'/krypnite/products/{self.slug}'
