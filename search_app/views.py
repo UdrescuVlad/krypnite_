@@ -19,5 +19,4 @@ def searchViewByProduct(request):
         'products':query_set
         
     }
-    print()
     return render(request, 'view_products_on_search.html', context)
