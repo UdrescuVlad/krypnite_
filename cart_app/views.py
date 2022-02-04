@@ -20,8 +20,8 @@ def cart_update(request):
         try:
             product_obj = Product.objects.get(id=product_id)
         except Product.DoesNotExist:
-            print("It happens that the product is not found! We're sorry.\n\tWe will refund you with one month for free!")
-            redirect("cart:home")
+            print("It happens that the product you searched for is not found! We're sorry.\n\tWe will refund you with one month for free!")
+            redirect("krypnite:products")
         cart_obj, new_obj = Cart.objects.new_or_get(request)
 
         if product_obj in cart_obj.products.all():
