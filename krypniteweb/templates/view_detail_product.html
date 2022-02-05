@@ -19,19 +19,29 @@
                         <div style="font-weight: 500; font-size: 1.5em;">Price:</div>$ {{product.price}}
                         <br><br>
                         <div>
+                            {% if not product.in_stock %}
+                            
+                                <form method='POST' action='{% url "cart:update" %}' class="form-inline my-2 my-lg-2"> {% csrf_token %}
+                                    <input type='hidden' name='product_id' value='{{ product.id }}'/>
+                                        <div style="font-weight: 400; font-size: 1em;">This product is sold out.</div>
+                                        <br>
+                                </form>
+
+                            {% else %}
                             <!-- should be moved in another html file: 'update_cart.html' -->
-                            <form method='POST' action='{% url "cart:update" %}' class="form-inline my-2 my-lg-2"> {% csrf_token %}
-                                <input type='hidden' name='product_id' value='{{ product.id }}'/>
-                                {% if product in cart.products.all %}
-                                    <div style="font-weight: 200; font-size: 1em;">Already in cart.</div>
-                                    <br>
-                                    <button type='submit' class='btn btn-link'>Remove?</button>
-                                {% else %}
-                                    <div style="font-weight: 400; font-size: 1em;">Add to cart?</div>
-                                    <br>
-                                    <button type='submit' class='btn btn-success'>Ship me these!</button>
-                                {% endif %}
-                            </form> 
+                                <form method='POST' action='{% url "cart:update" %}' class="form-inline my-2 my-lg-2"> {% csrf_token %}
+                                    <input type='hidden' name='product_id' value='{{ product.id }}'/>
+                                    {% if product in cart.products.all %}
+                                        <div style="font-weight: 200; font-size: 1em;">Already in cart.</div>
+                                        <br>
+                                        <button type='submit' class='btn btn-link'>Remove?</button>
+                                    {% else %}
+                                        <div style="font-weight: 400; font-size: 1em;">Add to cart?</div>
+                                        <br>
+                                        <button type='submit' class='btn btn-success'>Ship me these!</button>
+                                    {% endif %}
+                                </form>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
