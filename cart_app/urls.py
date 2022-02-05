@@ -7,7 +7,9 @@ from . import views
 urlpatterns = [
     path('home', views.cart_home, name='home'),
     path('update', views.cart_update, name='update'),
-    path('checkout', views.checkout_redirect, name='checkout')
+    path('checkout', views.checkout_redirect, name='checkout'),
+    path('favhome', views.fav_list_home, name='favhome'),
+    path('favupdate', views.fav_list_update, name='favupdate'),
 ] 
 
 if settings.DEBUG:

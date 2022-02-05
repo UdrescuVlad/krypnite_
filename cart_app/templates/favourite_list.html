@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if favlist.products.exists %}
+    <br><br>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group">
+                <a href="/krypnite/products">Back to products products page</a>
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin: auto; max-width:90%; width: 90%; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent">
+        <div class="row" style="text-align: center;">
+            <div class="cart" style="background-color: #fff; padding: 2vh 5vh;">
+                <div class="title">
+                    <h4>Favourite list ♥</h4>
+                </div>
+                {% for product in favlist.products.all %}
+                    <div class="row border-top border-bottom">
+                        <div class="row-cols-md-3">{{forloop.counter}}</div>
+                        <div class="col">
+                            <img class="card-image img-fluid" style='height: auto; width: auto; border-radius: 65%; box-shadow: 0 0 5px rgba(0,0,0,.2); margin: 0 auto;' src="{{ product.product_photo.url }}" alt="image">
+                        </div>
+                        <br>
+                        <div class="col">{{product.product_name}}</div>
+                        <div class="col">
+                            {{product.location}}
+                        </div>
+                        <div class="col">
+                            $ {{product.price}}
+                        </div>
+                        <div class="col">
+                            <form method = 'POST' action='{% url "cart:favupdate" %}' class = 'form-inline my-2 my-lg-2'> {% csrf_token %}
+                                <input type='hidden' name='product_id' value='{{ product.id }}'/> 
+                                <button type='submit' style='padding:0px' class='btn btn-outline-danger'>Remove?</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                <br><br>
+                
+            </div>
+        </div>
+    </div>
+    
+{% else %}
+    <h1>Favourite list is empty!</h1>
+    <div class="btn-group">
+        <a href="/krypnite/products" class="btn btn-outline-danger active">
+            Back to products products page
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

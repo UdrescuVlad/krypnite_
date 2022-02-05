@@ -1,8 +1,32 @@
 from decimal import Decimal
+from tkinter import CASCADE
 from django.db import models
 from django.conf import settings
 from krypniteweb.models import Product
 from django.db.models.signals import pre_save,m2m_changed,post_save
+
+class FavouriteListManager(models.Manager):
+    def new_or_get(self, request):
+        fav_list_id = request.session.get("fav_list_id", None)
+        query = self.get_queryset().filter(id=fav_list_id)
+        if query.count() == 1:
+            new_obj = False
+            fav_list_object = query.first()
+            if request.user.is_authenticated and fav_list_object.user is None:
+                fav_list_object.user = request.user
+                fav_list_object.save()
+        else:
+            fav_list_object = FavouriteList.objects.new(user=request.user)
+            new_obj = True
+            request.session["fav_list_id"] = fav_list_object.id
+        return fav_list_object, new_obj
+    
+    def new(self, user=None):
+        user_object = None
+        if user is not None:
+            if user.is_authenticated:
+                user_object = user
+        return self.model.objects.create(user=user_object)
 
 class CartManager(models.Manager):
     def new_or_get(self, request):
@@ -58,3 +82,12 @@ def cart_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.total = instance.subtotal
 
 pre_save.connect(cart_pre_save_receiver, sender=Cart)
+
+class FavouriteList(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, blank=True)
+
+    objects = FavouriteListManager()
+
+    def __str__(self):
+        return str(self.id)

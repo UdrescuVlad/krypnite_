@@ -33,12 +33,16 @@
                                     <input type='hidden' name='product_id' value='{{ product.id }}'/>
                                     {% if product in cart.products.all %}
                                         <div style="font-weight: 200; font-size: 1em;">Already in cart.</div>
-                                        <br>
-                                        <button type='submit' class='btn btn-link'>Remove?</button>
+                                        <p>
+                                            <button type='submit' class='btn btn-link'>Remove?</button>
+                                        </p>
+                                        
                                     {% else %}
                                         <div style="font-weight: 400; font-size: 1em;">Add to cart?</div>
-                                        <br>
-                                        <button type='submit' class='btn btn-success'>Ship me these!</button>
+                                        <p>
+                                            <button type='submit' class='btn btn-success'>Ship me these!</button>
+                                        </p>
+                                        
                                     {% endif %}
                                 </form>
                             {% endif %}

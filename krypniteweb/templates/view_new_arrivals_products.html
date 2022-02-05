@@ -31,67 +31,30 @@
 
         <br><br>
         
-        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-            <div class="col-6">
-                <a class="display-4 font-italic" href='{% url "krypnite:new-arrivals" %}'>New Arrivals</a>
-            </div>
-        </div>
-        
-        <br><br>
-
-        <!-- <div class="bricklayer"> -->
         <div class="card-columns">
             {% for product in products %}
-            <div class="card rounded mx-auto" style=" box-shadow: 0 10px 10px rgba(0, 0, 0, .2); border-radius: 2em;">
-                <div class="card-body text-center">
+            <div class="card rounded mx-auto" style="object-fit: contain; box-shadow: 0 10px 10px rgba(0, 0, 0, .2); border-radius: 2em;">
+                <div class="card-body overflow-hidden my-md-3 text-center">
 
                     {% if not product.in_stock %}
 
-                    <div class="card bg-dark text-white">
-                        <a href="{{product.get_absolute_url}}">
-                            <img class="card-image img-fluid" style='max-height: auto; max-width: auto; object-fit: contain; box-shadow: 0 5px 5px rgba(0, 0, 0, .2); border-radius: 0.5em;' src="{{ product.product_photo.url }}" alt="{{product.slug}}">
-                        </a>
-                        <div class="card-img-overlay bg-red" style="position: relative;">
-                            <h1 class="card-title">OUT OF STOCK</h1>
-                        </div>
-                    </div>
-                    <p>
-                        <br>
-                        <h2 class="card-title" style="background: linear-gradient(0.45turn,#d11929,#00a4ff); 
-                                                background-clip: text; 
-                                                -webkit-text-fill-color: transparent;
-                                                -webkit-background-clip: text;
-                                                -moz-background-clip: text;
-                                                -moz-text-fill-color: transparent;
-                                                display: inline-block">
-                                                {{ product.product_name }}</h2>
-                    
-                        <h4 class="card-text lead">{{ product.location }}</h4>
-                    </p>
-
-                    {% elif product.in_stock and product.new_arrivals %}
-                        
                         <div class="card bg-dark text-white">
-                            <a href="{{product.get_absolute_url}}">
-                                <img class="card-image img-fluid" style='max-height: auto; max-width: auto; object-fit: contain; box-shadow: 0 5px 5px rgba(0, 0, 0, .2); border-radius: 0.5em;' src="{{ product.product_photo.url }}" alt="{{product.slug}}">
-                            </a>
-                            <div class="card-img-overlay bg-light" style="position: relative;">
-                                <h1 class="card-title">NEW ARRIVALS</h1>
+                            <img src="{{ product.product_photo.url }}" class="card-image img-fluid" alt="{{product.slug}}" style='max-height: auto; max-width: auto; object-fit: contain; box-shadow: 0 5px 5px rgba(0, 0, 0, .2); border-radius: 0.5em;'>
+                            <a href="{{product.get_absolute_url}}">{{ product.product_name }}</a>
+                            <div class="card-img-overlay" style="position: relative;">
+                                <h1 class="card-title">Sold out</h1>
                             </div>
                         </div>
-                        <p>
-                            <br>
-                            <h2 class="card-title" style="background: linear-gradient(0.45turn,#d11929,#00a4ff); 
-                                                    background-clip: text; 
-                                                    -webkit-text-fill-color: transparent;
-                                                    -webkit-background-clip: text;
-                                                    -moz-background-clip: text;
-                                                    -moz-text-fill-color: transparent;
-                                                    display: inline-block">
-                                                    {{ product.product_name }}</h2>
-                        
-                            <h4 class="card-text lead">{{ product.location }}</h4>
-                        </p>
+
+                    {% elif product.in_stock and product.new_arrivals %}
+
+                    <div class="card bg-dark text-white">
+                        <img src="{{ product.product_photo.url }}" class="card-image img-fluid" alt="{{product.slug}}" style='max-height: auto; max-width: auto; object-fit: contain; box-shadow: 0 5px 5px rgba(0, 0, 0, .2); border-radius: 0.5em;'>
+                        <a href="{{product.get_absolute_url}}">{{ product.product_name }}</a>
+                        <div class="card-img-overlay bg-red" style="position: relative;">
+                            <h1 class="card-title">NEW ARRIVALS</h1>
+                        </div>
+                    </div>
 
                     {% else %}
 
@@ -112,54 +75,29 @@
                             <h4 class="card-text lead">{{ product.location }}</h4>
                         </p>
                         
-                    {% endif %}
-                    <div style="width:100%">
-                        <hr style="clear:both;"/>
-                        <p style=" float: left; text-align: left;">
+
+
+                        <p class="card-text" style="text-align: center;">
                             <form method = 'POST' action='{% url "cart:update" %}'> {% csrf_token %}
                                 <input type='hidden' name='product_id' value='{{ product.id }}'/>
-                                {% if product in cart.products.all and product.in_stock%}
+                                {% if product in cart.products.all %}
                                     <button type="submit" class="btn btn-outline-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart">
                                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                         </svg>
                                         $ {{ product.price }}
                                     </button>
-                                {% elif not product in cart.products.all and product.in_stock %}
+                                {% else %}
                                     <button type="submit" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart">
                                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                         </svg>
                                         $ {{ product.price }}
                                     </button>
-                                {% else %}
-                                    <br>
-                                    <h4>Out of stock</h4>
                                 {% endif %}
                             </form>
                         </p>
-                        <p style=" float: left; text-align: right;">
-                            <form method = 'POST' action='{% url "cart:favupdate" %}'> {% csrf_token %}
-                                <input type='hidden' name='product_id' value='{{ product.id }}'/>
-                                {% if product in favlist.products.all and product.in_stock %}
-                                    <button type="submit" class="btn btn-outline-success">
-                                        <i class="bi bi-heart-fill">
-                                        $ {{ product.price }}
-                                        </i>
-                                    </button>
-                                {% elif not product in favlist.products.all and product.in_stock%}
-                                    <button type="submit" class="btn btn-outline-danger">
-                                        <i class="bi bi-heart">
-                                            $ {{ product.price }}
-                                        </i>
-                                    </button>
-                                {% else %}
-                                    
-                                {% endif %}
-                            </form>
-                        </p>
-                        <hr style="clear:both;"/>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

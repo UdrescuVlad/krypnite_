@@ -63,11 +63,18 @@
                   <li class = "nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Profile</a>
                     <div class="dropdown-menu dropdown-large">
-                      <a class="nav-link" href="{% url 'cart:home' %}">Cart</a>
+                      <a class="nav-link" href="{% url 'cart:home' %}">Cart home</a>
+                      <a class="nav-link" href="{% url 'cart:favhome' %}">Favourite list</a>
+                      <a class="nav-link" href="#">Your Orders</a>
+                      <a class="nav-link" href="{% url 'krypnite:wishlist' %}" class="nav-link">Wishlist</a>
                     </div>
                   </li>
-                  <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:membership' %}" class="nav-link">Membership</a></li>
-                  <li class = "nav-item"><a class="nav-link" href="{% url 'krypnite:wishlist' %}" class="nav-link">Wishlist</a></li>
+                  <li class = "nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Subscription</a>
+                    <div class="dropdown-menu dropdown-large">
+                      <a class="nav-link" href="{% url 'krypnite:membership' %}" class="nav-link">Membership</a>
+                    </div>
+                  </li>
                 </ul>
             </div>
 

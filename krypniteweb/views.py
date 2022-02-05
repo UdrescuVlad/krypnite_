@@ -39,6 +39,17 @@ def filterProductsByPrice(request):
     }
     return render(request, 'view_products.html', context)
 
+def viewNewArrivalsProducts(request):
+    cart_obj, new_or_not = Cart.objects.new_or_get(request)
+    new_arrivals_products = Product.objects.filter(new_arrivals=True)
+
+    context = {
+        'products': new_arrivals_products,
+        'cart':cart_obj
+    }
+    return render(request, 'view_new_arrivals_products.html', context)
+    
+
 class ViewDetailedProduct(DetailView):
     query_set = Product.objects.all()
     template_name = 'view_detail_product.html'
