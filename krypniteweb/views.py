@@ -18,8 +18,23 @@ from django.contrib.auth.decorators import login_required
 def viewProducts(request):
     all_products = Product.objects.all()
     cart_obj, new_or_not = Cart.objects.new_or_get(request)
-    context={
+    context = {
         'products':all_products,
+        'cart':cart_obj
+    }
+    return render(request, 'view_products.html', context)
+
+def filterProductsByPrice(request):
+    cart_obj, new_or_not = Cart.objects.new_or_get(request)
+    get_filter_price = request.GET.get("price","low-to-high")
+
+    if get_filter_price == "low-to-high":
+        products_filtered_by_price = Product.objects.order_by("price")
+    else:
+        products_filtered_by_price = Product.objects.order_by("-price")
+
+    context = {
+        'products': products_filtered_by_price,
         'cart':cart_obj
     }
     return render(request, 'view_products.html', context)

@@ -7,8 +7,8 @@ from . import views
 
 urlpatterns = [
     path('products/', views.viewProducts, name='products'),
-    # re_path(r'^product/(?P<id>\d+)/', views.viewDetailedProduct, name='product'),
-    # re_path(r'^products/(?P<slug>[\w-]+)/', views.viewDetailedProductBySlug, name='products'),
+    # re_path(r'^products/filter/?price=(?P<price>[\w-]+)', views.filterProductsByPrice, name='filter'),
+    path('products/filter/', views.filterProductsByPrice, name='filterByPrice'),
     re_path(r'^products/(?P<slug>[\w-]+)/',login_required(views.ViewDetailedProduct.as_view()), name='products'),
     path('login/', views.doLogin, name='login'),
     path('register/', views.doRegister, name='register'),
