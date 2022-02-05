@@ -7,6 +7,12 @@ from django.db.models.signals import pre_save
 CATEGORY_CHOICES_PRODUCT = (
     ("cars", "Cars"),
     ("cosmetics","Cosmetics"),
+    ("outlet","Outlet"),
+    ("jewerly","Jewerly"),
+    ("accesories","Accesories"),
+    ("toys","Toys"),
+    ("books","Books"),
+    ("gaming","Gaming"),
 )
 
 class Product(models.Model):
@@ -16,7 +22,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField(max_length=1000)
     category = models.CharField(max_length=25, choices=CATEGORY_CHOICES_PRODUCT, default='cars')
+    in_stock = models.BooleanField(default=True)
+    new_arrivals = models.BooleanField(default=True)
     product_photo = models.ImageField(null=True, blank=True, upload_to="images/")
+
     def get_absolute_url(self):
         return f'/krypnite/products/{self.slug}'
     def __str__(self):
