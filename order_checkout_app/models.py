@@ -1,7 +1,10 @@
 from decimal import Decimal
 from email.policy import default
+from tkinter import CASCADE
+from venv import create
 from django.db import models
 from django.db.models.signals import pre_save, post_save
+from address_app.models import Address
 
 from billing_app.models import BillingProfile
 from .utils import unique_random_order_id
@@ -16,27 +19,29 @@ ORDER_STATUS = (
     ('returned', 'Returned'), # a returna produsul
 )
 
-# class OrderCheckoutManager(models.Manager):
-#     def new_or_get(self, billing_profile, cart_obj):
-#         created = False
-#         qs = self.get_queryset().filter(billing_profile=billing_profile, cart=cart_obj, active=True)
-#         if qs.count() == 1:
-#             obj = qs.first()
-#         else:
-#             obj = self.model.objects.create(billing_profile=billing_profile, cart=cart_obj)
-#             created = True
-#         return obj, created
+class OrderCheckoutManager(models.Manager):
+    def new_or_get(self, billing_profile, cart_obj):
+        created = False
+        qs = self.get_queryset().filter(billing_profile=billing_profile, cart=cart_obj, active=True, status='created')
+        if qs.count() == 1:
+            obj = qs.first()
+        else:
+            obj = self.model.objects.create(billing_profile=billing_profile, cart=cart_obj)
+            created = True
+        return obj, created
 
 class OrderCheckout(models.Model):
     billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=200, blank=True)
     cart = models.ForeignKey(Cart, null=True, blank=True, on_delete=models.CASCADE)
+    shipping_address = models.ForeignKey(Address, related_name='shipping_address', null=True, blank=True, on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(Address, related_name='billing_address', null=True, blank=True, on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default='created', choices=ORDER_STATUS)
     shipping_total = models.DecimalField(default=1.99, max_digits=100, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
     active = models.BooleanField(default=True)
 
-    # objects = OrderCheckoutManager()
+    objects = OrderCheckoutManager()
 
     def __str__(self):
         return self.order_id
@@ -45,6 +50,22 @@ class OrderCheckout(models.Model):
         self.total = self.cart.total + Decimal(self.shipping_total)
         self.save()
         return self.total
+
+    def is_client_fill_bill_data(self):
+        billing_profile = self.billing_profile
+        billing_address = self.billing_address
+        shipping_address = self.shipping_address
+        total = self.total
+        if total < 0 or total == 0:
+            return False
+        elif total > 0 and billing_profile and billing_address and shipping_address:
+            return True
+    
+    def order_status_payed(self):
+        if self.is_client_fill_bill_data():
+            self.status = 'payed'
+            self.save()
+        return self.status
     
     # class Meta:
     #     unique_together = ('order_id','cart')

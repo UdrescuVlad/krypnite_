@@ -2,6 +2,11 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 
+# class BillingProfileManager(models.Manager):
+#     def new_or_get(self, request):
+#         if request.user.is_authenticated():
+#             obj
+
 User = settings.AUTH_USER_MODEL
 
 #   admin@admin.ro -> poate sa aiba 1k de billing profile

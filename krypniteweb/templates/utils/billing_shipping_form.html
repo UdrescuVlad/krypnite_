@@ -1,0 +1,11 @@
+
+<form method="POST" action='{% url "address:billing-shipping-validation" %}'>
+    {% csrf_token %}
+    <div class="form-signin">
+
+        {{ form }}
+
+    </div>
+    <br><br>
+    <button type='submit' class="btn btn-default">Submit</button>
+</form>

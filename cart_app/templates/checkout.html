@@ -9,6 +9,11 @@
         <img src="{% static '8744.png' %}" width="200" height="200" class="bi me-2" alt="logo krypnite in navbar">
     </div>
     <div class="rightside" style="background-color: #ffffff;width: 35rem;border-bottom-right-radius: 1.5rem;border-top-right-radius: 1.5rem;padding: 1rem 2rem 3rem 3rem;">
+        <b>ORDER ID: </b>{{order.order_id}}
+            <br>
+            <b>CART ID: </b> {{order.cart}}
+            <br>
+            <b>BILLING PROFILE: </b>{{order.billing_profile}}
         {% if not billing_profile %}
         <form action="{% url 'krypnite:login' %}" method="POST">
             {% csrf_token %}
@@ -31,52 +36,94 @@
             </a>
         </div>
         {% else %}
-            <b>ORDER ID: </b>{{order.order_id}}
-            <br>
-            <b>CART ID: </b> {{order.cart}}
-            <br>
-            <b>BILLING PROFILE: </b>{{order.billing_profile}}
-            <form action="">
-                <h2>Payment Information</h2>
-                <input type="text" class="inputbox" name="name" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Cardholder name"/>
-                <input type="number" class="inputbox" name="card_number" id="card_number" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Card number"/>
-                <select class="inputbox" name="card_type" id="card_type" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;">
-                  <option value="">--Select a Card Type--</option>
-                  <option value="MasterCard">MasterCard</option>
-                  <option value="AmericanExpress">American Express</option>
-                  <option value="Visa">Visa</option>
-                </select>
-                <div class="exp_and_cvv" style="display:flex;justify-content: space-between;padding-top: 0.6rem;">
-    
-                    <p class="exp" style="padding-right: 1rem;"></p>
-                    <input type="date" class="inputbox" name="exp_date" id="exp_date" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
-        
-                    <p class="cvv" style="padding:0 1rem;"></p>
-                    <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="CVV" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
+
+            {% if not order.shipping_address %}
+
+                <div class="col">
+                    <br>
+                    <h4>Shipping address</h4><br>
+                    <form method="POST" action='{% url "address:billing-shipping-validation" %}'>
+                        {% csrf_token %}
+                        <div class="form-signin">
+                       
+                        {% if not address_type %}
+                            <input type='text' name='address_type' value='shipping'/>
+                        {% endif %}
+                        
+                        {{ form.as_p }}
+                    
+                        </div>
+                        <br><br>
+                        <button type='submit' class="btn btn-default">Submit</button>
+                    </form>
                 </div>
-                <br>
-                <div style="padding-left: 0.5rem">
-                    <h6>Cart total: {{order.cart.total}}</h6>
-                    <h6>Shipping total: {{order.shipping_total}}</h6>
-                    <h2>Order Total: {{order.total}}</h2>
+
+            {% elif not order.billing_address %}
+
+                <div class="col">
+                    <br>
+                    <h4>Billing address</h4><br>
+                    <form method="POST" action='{% url "address:billing-shipping-validation" %}'>
+                        {% csrf_token %}
+                        <div class="form-signin">
+                    
+                        {% if not address_type %}
+                            <input type='text' name='address_type' value='billing'/>
+                        {% endif %}
+                        
+                        {{ form.as_p }}
+                    
+                        </div>
+                        <br><br>
+                        <button type='submit' class="btn btn-default">Submit</button>
+                    </form>
                 </div>
-                <br>
-                <button type="submit" class="button" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
-                border: none;
-                border-radius: 50px;
-                color: white;
-                font-weight: 400;
-                font-size: 1.2rem;
-                margin-top: 10px;
-                width:100%;
-                letter-spacing: .11rem;
-                outline:none;">Pay order</button>
-            </form>
-            <br><br>
             
+            {% else %}
+
+                <form class= "form" method="POST" action="">
+                    {% csrf_token %}
+                    <h2>Payment Information</h2>
+                    <!-- <input type="text" class="inputbox" name="name" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Cardholder name"/>
+                    <input type="number" class="inputbox" name="card_number" id="card_number" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;" placeholder="Card number"/>
+                    <select class="inputbox" name="card_type" id="card_type" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;">
+                    <option value="">--Select a Card Type--</option>
+                    <option value="MasterCard">MasterCard</option>
+                    <option value="AmericanExpress">American Express</option>
+                    <option value="Visa">Visa</option>
+                    </select>
+                    <div class="exp_and_cvv" style="display:flex;justify-content: space-between;padding-top: 0.6rem;">
+        
+                        <p class="exp" style="padding-right: 1rem;"></p>
+                        <input type="date" class="inputbox" name="exp_date" id="exp_date" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
+            
+                        <p class="cvv" style="padding:0 1rem;"></p>
+                        <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="CVV" required style="color:#030303;width: 100%;padding: 0.5rem;border: none;border-bottom: 1.5px solid #ccc;margin-bottom: 1rem;border-radius: 0.3rem;font-family: 'Roboto', sans-serif;color: #615a5a;font-size: 1.1rem;font-weight: 500;outline:none;"/>
+                    </div>
+                    <br>
+                    <div style="padding-left: 0.5rem">
+                        <h6>Cart total: {{order.cart.total}}</h6>
+                        <h6>Shipping and handling: {{order.shipping_total}}</h6>
+                        <h2>Order Total: {{order.total}}</h2>
+                    </div>
+                    <br> -->
+                    <button type="submit" class="button" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
+                    border: none;
+                    border-radius: 50px;
+                    color: white;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                    margin-top: 10px;
+                    width:100%;
+                    letter-spacing: .11rem;
+                    outline:none;">Pay order</button>
+                </form>
+                <br><br>
+
+            {% endif %}
+
         {% endif %}
     </div>
 </div>
-
 
 {% endblock %}

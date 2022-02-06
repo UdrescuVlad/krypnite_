@@ -7,5 +7,5 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = "__all__"
-        exclude = ["billing_profile"]
+        exclude = ["billing_profile","address_type"]
         

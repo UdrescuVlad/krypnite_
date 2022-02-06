@@ -5,7 +5,8 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path('billing', views.billing_info_redirect, name='billing'),
+    # path('billing/shipping/', views.billing_shipping_info, name='billing-shipping'),
+    path('billing/shipping/validation', views.validation_billing_shipping_info, name='billing-shipping-validation')
 ] 
 
 if settings.DEBUG:
