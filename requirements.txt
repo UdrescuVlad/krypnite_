@@ -1,6 +1,8 @@
 Django>=3.0,<4.0
+stripe>=2.48.0,<3.0
 psycopg2
 psycopg2-binary>=2.8
 Pillow
 django-crispy-forms
 crispy-bootstrap5
+stripe>=2.48.0,<3.0

@@ -76,28 +76,6 @@ class ViewDetailedProduct(DetailView):
         return instance
 
 
-#  def viewDetailedProduct(request, id):
-#     instance = get_object_or_404(Product, id=int(id))
-#     context={
-#         'object':instance
-#     }
-#     return render(request, 'view_detail_product.html', context)
-
-# def viewDetailedProductBySlug(request, slug):
-#     try:
-#         instance = Product.objects.get(slug=slug)
-#     except Product.DoesNotExist:
-#         raise Http404("There is nothing to see here...")
-#     except Product.MultipleObjectsReturned:
-#         query_set = Product.objects.filter(slug=slug)
-#         instance = query_set.first
-#     except:
-#         raise Http404("Fall back to safe zone!")
-#     context={
-#         'product':instance
-#     }
-#     return render(request, 'view_detail_product.html', context)
-
 @login_required
 def becomeMember(request):
     return render(request, 'become_member.html')
@@ -131,7 +109,7 @@ def doLogin(request):
                 login(request, user)
                 print(request.get_host())
                 if is_safe_url(next_, request.get_host()):
-                    print('------->>>>>>>>>>>'+next_)
+                    print('->next:'+next_)
                     return redirect(next_)
                 else:
                     messages.success(request, username1+', welcome')

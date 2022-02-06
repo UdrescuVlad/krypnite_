@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from address_app.forms import AddressForm
+from address_app.models import Address
 from billing_app.models import BillingProfile
 
 def validation_billing_shipping_info(request):
@@ -29,4 +30,26 @@ def validation_billing_shipping_info(request):
             print("Billing information is not registered. Please create an account if you don't have one.")
             redirect("krypnite:login")
 
+    return redirect("cart:checkout")
+
+def validation_billing_shipping_info_reuse(request):
+    
+    if request.method == "POST":
+        
+        billing_profile = None
+        shipping_address = request.POST.get('shipping_address', None)
+        billing_address = request.POST.get('billing_address', None)
+        
+        if request.user.is_authenticated:
+            billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user=request.user,email=request.user.email)
+        else:
+            redirect("krypnite:login")
+        
+        address_type = request.POST.get('address_type', 'shipping')
+        if shipping_address is not None:
+            query_shipping_address = Address.objects.filter(billing_profile = billing_profile, id = shipping_address)
+            if query_shipping_address.exists():
+                request.session[address_type+"_address_id"] = shipping_address
+        
+        
     return redirect("cart:checkout")

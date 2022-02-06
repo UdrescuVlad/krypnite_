@@ -10,6 +10,7 @@ urlpatterns = [
     path('checkout', views.checkout_redirect, name='checkout'),
     path('favhome', views.fav_list_home, name='favhome'),
     path('favupdate', views.fav_list_update, name='favupdate'),
+    path('success', views.checkout_paid, name='success'),
 ] 
 
 if settings.DEBUG:
