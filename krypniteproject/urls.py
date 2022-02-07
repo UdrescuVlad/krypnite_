@@ -26,5 +26,6 @@ urlpatterns = [
     path('search/', include(('search_app.urls','search_app'), namespace='search')),
     path('cart/', include(('cart_app.urls','cart_app'), namespace='cart')),
     path('address/', include(('address_app.urls','address_app'), namespace='address')),
+    path('billing/', include(('billing_app.urls','billing_app'), namespace='billing')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
