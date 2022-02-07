@@ -17,7 +17,7 @@
         <link rel="icon" href='{% static "8744.png"%}' width="250" height="250">
         <meta name="theme-color" content="#0f8719">
         <style>
-            .message {
+            .messagesss {
                 text-align: center;
                 size: 1rem;
                 border-radius: 10px;
@@ -40,7 +40,7 @@
             }
 
             .message.error {
-                background-color: #ec1111;
+                color: #ec1111;
             }
             .bd-placeholder-img {
               font-size: 1.125rem;
@@ -112,15 +112,7 @@
 
     
     <main class="form-signin">
-        <div class="my-3 p-3">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p class="message {{ message.tags }}">{{ message }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
+        
         
         <form action="{% url 'krypnite:login' %}" method="POST">
             {% csrf_token %}
@@ -136,7 +128,15 @@
             <div class="form-floating">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
             </div>
-            <br><br>
+            <div class="my-3 p-1">
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <h6 class="message {{ message.tags }}">{{ message }}</h6>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
             <button class="w-100 btn btn-lg btn-primary login-button" type="submit" style="background: linear-gradient(0.45turn,#d11929,#00a4ff);padding: 15px;
             border: none;
             border-radius: 50px;
@@ -149,9 +149,22 @@
             outline:none;">Let me enter</button>
             <br><br>
         </form>
-        <a href="{% url 'krypnite:register' %}" class="btn btn-dark btn-sm" role="button">I don't have an account</a>
-        <br><br>
-        <a href="/krypnite/products" class="btn btn-outline btn-sm" role="button">Get me to products page</a>
+        <a href="{% url 'krypnite:register' %}" class="btn btn-outline-danger btn-sm" style="padding: 15px;
+        border-radius: 50px;
+        font-weight: 100;
+        font-size: 0.75rem;
+        margin-top: 10px;
+        width:70%;
+        letter-spacing: .11rem;
+        outline:none;">I don't have an account</a>
+        <a href="{% url 'krypnite:products' %}" class="btn btn-outline-dark btn-sm" style="padding: 15px;
+        border-radius: 50px;
+        font-weight: 100;
+        font-size: 0.75rem;
+        margin-top: 10px;
+        width:70%;
+        letter-spacing: .11rem;
+        outline:none;">Get me to products page</a>
 
         <p class="mt-5 mb-3 text-muted">&copy;2021</p>
     </main>

@@ -5,7 +5,19 @@
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
-                    <p class="message {{ message.tags }}">{{ message }}</p>
+                    <p class="message {{ message.tags }}"  style = "text-align: center;
+                    size: 1rem;
+                    border-radius: 10px;
+                    box-shadow: 3px 3px 4px 0px rgba(50, 50, 50, 0.75);
+                    color: white;
+                    margin-bottom: 10px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-bottom: 5px;
+                    padding-top: 5px;
+                    padding-left: 45px;
+                    padding-right: 45px;
+                    width: 20%;">{{ message }}</p>
                 {% endfor %}
             </div>
         {% endif %}
@@ -26,6 +38,7 @@
                 <li class="filters"><strong>Sort by:</strong></li>
                 <li class="filters"><a class="filter_by" href="/krypnite/products/filter/?price=low-to-high">Price: Low to High</a></li>
                 <li class="filters"><a class="filter_by" href="/krypnite/products/filter/?price=high-to-low">Price: High to Low</a></li>
+                <li class="filters"><a class="filter_by" href="/krypnite/products/filter/recommended">Recomended</a></li>
             </ul>
         </div>
 
@@ -164,7 +177,7 @@
             {% endfor %}
         </div>
     </div>
-    <script>
-        setTimeout(function() { $('.messages').fadeIn('fast').fadeOut('slow');},3000);
-    </script>
+    <!-- <script>
+        setTimeout(function() { $('.message').fadeIn('fast').fadeOut('slow');},3000);
+    </script> -->
 {% endblock %}

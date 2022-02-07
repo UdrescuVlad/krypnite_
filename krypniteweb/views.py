@@ -1,3 +1,4 @@
+import random
 from django.db.models import query
 from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -49,6 +50,16 @@ def viewNewArrivalsProducts(request):
     }
     return render(request, 'view_new_arrivals_products.html', context)
     
+def filterProductsByRecommandations(request):
+    cart_obj, new_or_not = Cart.objects.new_or_get(request)
+    recommanded_products = list(Product.objects.all())
+
+    products = random.sample(recommanded_products, 5)
+    context = {
+        'products': products,
+        'cart':cart_obj
+    }
+    return render(request, 'view_products.html', context)
 
 class ViewDetailedProduct(DetailView):
     query_set = Product.objects.all()
@@ -132,6 +143,7 @@ def doRegister(request):
         new_user = User.objects.create_user(name, email, password)
         form = RegistrationModelForm()
         print(new_user)
+        return redirect(("krypnite:login"))
 
     context['registration_form'] = form
     return render(request, 'register.html', context)
