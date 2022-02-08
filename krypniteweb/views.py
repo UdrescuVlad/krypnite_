@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import DetailView
 from krypniteweb.models import Product
-from cart_app.models import Cart
+from cart_app.models import Cart, FavouriteList
 from krypniteweb.forms import WishlistForm, RegistrationModelForm
 from krypniteweb.templates import *
 
@@ -18,15 +18,19 @@ from django.contrib.auth.decorators import login_required
 
 def viewProducts(request):
     all_products = Product.objects.all()
+    favlist_obj, new_or_not_favlist = FavouriteList.objects.new_or_get(request)
     cart_obj, new_or_not = Cart.objects.new_or_get(request)
     context = {
         'products':all_products,
-        'cart':cart_obj
+        'cart':cart_obj,
+        'favlist':favlist_obj
     }
     return render(request, 'view_products.html', context)
 
 def filterProductsByPrice(request):
     cart_obj, new_or_not = Cart.objects.new_or_get(request)
+    favlist_obj, new_or_not_favlist = FavouriteList.objects.new_or_get(request)
+
     get_filter_price = request.GET.get("price","low-to-high")
 
     if get_filter_price == "low-to-high":
@@ -36,7 +40,8 @@ def filterProductsByPrice(request):
 
     context = {
         'products': products_filtered_by_price,
-        'cart':cart_obj
+        'cart':cart_obj,
+        'favlist':favlist_obj
     }
     return render(request, 'view_products.html', context)
 
