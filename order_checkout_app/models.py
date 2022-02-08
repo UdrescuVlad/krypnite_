@@ -66,8 +66,6 @@ class OrderCheckout(models.Model):
         if self.is_client_fill_bill_data():
             self.status = 'payed'
             self.order_ext_id = unique_random_order_ext_id(OrderCheckout)
-            print("--------------------------------------")
-            print(self.order_ext_id)
             self.save()
         return self.status
     
