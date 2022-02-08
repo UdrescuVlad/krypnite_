@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     path('', views.searchViewByProduct, name='byProductName'),
     path('category/', views.searchByCategoryProduct, name='byCategory'),
+    path('extID/', views.searchOrderExtId, name='byExtID'),
 ] 
 
 if settings.DEBUG:

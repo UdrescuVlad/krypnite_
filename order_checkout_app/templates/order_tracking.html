@@ -1,55 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
 
-{% if favlist.products.exists %}
     <br><br>
-    <div class="card" style=" box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 1rem; border: transparent">
-        <div class="row" style="text-align: center;">
-            <div class="cart" style="background-color: #fff;">
-                <div class="title">
+    <div class="container-fluid" style="height: max-content; width: 90%; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);">
+        <div style="text-align: center;">
+            <div style="background-color: #fff;">
+                <div>
+                    <br>
                     <h4>Track an order</h4>
                 </div>
                 <div class="row">
-                    <div class="btn-group">
+                    <div class="btn-group" style="padding:2%">
                         <a href="/krypnite/products">Back to products products page</a>
                     </div>
                 </div>
-                <br>
-                {% for product in favlist.products.all %}
-                    <div class="row border-top border-bottom" style="height: 20%;">
-                        <div class="row-cols-md-3" style="align-self: center;">{{forloop.counter}}</div>
-                        <div class="col" style="align-self: center;">
-                            <img class="card-image" style=' height: 80%; width: 30%; border-radius: 15%; box-shadow: 0 5px 5px rgba(0,0,0,.2); ' src="{{ product.product_photo.url }}" alt="image">
-                        </div>
-                        <br>
-                        <div class="col" style="align-self: center;">{{product.product_name}}</div>
-                        <div class="col" style="align-self: center;">
-                            {{product.location}}
-                        </div>
-                        <div class="col" style="align-self: center;">
-                            $ {{product.price}}
-                        </div>
-                        <div class="col" style="align-self: center;">
-                            <form method = 'POST' action='{% url "cart:favupdate" %}' class = 'form-inline my-2 my-lg-2'> {% csrf_token %}
-                                <input type='hidden' name='product_id' value='{{ product.id }}'/> 
-                                <button type='submit' style='padding:0px' class='btn btn-outline-danger'>Remove?</button>
-                            </form>
-                        </div>
+                <form method='GET' action='{% url "search:byExtID" %}' class="form">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Track you external ID order*" name='q' aria-label="Search" style="width: 300pt;">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-outline-primary">Search</button>
+                        </span>
                     </div>
-                {% endfor %}
-                <br><br>
-                
+                    <br>
+                    <p class="text-muted">*Your external ID order can be found if you access your history.</p>
+
+                    {% if searchead_ext_id.exists %}
+
+                        {% for order in searchead_ext_id.all %}
+
+                            <div class="row border-top border-bottom" style="height: 20%;">
+                                <div class="row-cols-md-6" style="align-self: center;">{{forloop.counter}}</div>
+                                <br>
+                                <div class="col" style="align-self: center;">{{order.order_ext_id}}</div>
+                                
+                                <div class="col" style="align-self: center;">
+                                    Status: {{order.status}}
+                                </div>
+                                <br><br><br>
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+                </form>
+                <br>
             </div>
         </div>
     </div>
-    
-{% else %}
-    <h1>Please track an order</h1>
-    <div class="btn-group">
-        <a href="/krypnite/products" class="btn btn-outline-danger active">
-            Back to products products page
-        </a>
-    </div>
-{% endif %}
+
 {% endblock %}

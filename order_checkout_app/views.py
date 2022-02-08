@@ -23,13 +23,12 @@ def order_history(request):
     qs_my_orders_by_billing_profile = OrderCheckout.objects.filter(billing_profile = qs_my_billing_profile[0]['id'])
     print(qs_my_orders_by_billing_profile)
 
-    #   trebuie prelucrat raspunsul de la {{order.cart.products.all}} pentru ca da un query set de forma: "<QuerySet [<Product: Earings Swaroski>]>"
-
     context = {
         'my_orders': qs_my_orders_by_billing_profile
     }
-    
     return render(request, "order_history.html", context)
+
+
 
 def order_tracking(request):
     return render(request, "order_tracking.html", {})

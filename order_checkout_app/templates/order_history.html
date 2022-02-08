@@ -18,10 +18,10 @@
                 <br>
                 {% for order in my_orders.all %}
 
-
+                    {% if order.order_ext_id %}
 
                         <div class="row border-top border-bottom" style="height: 20%;">
-                            <div class="row-cols-md-3" style="align-self: center;">{{forloop.counter}}</div>
+                            <div class="row-cols-md-6" style="align-self: center;">{{forloop.counter}}</div>
                             <br>
                             <div class="col" style="align-self: center;">{{order.order_ext_id}}</div>
                             <div class="col" style="align-self: center;">
@@ -41,9 +41,10 @@
                                     <button type='submit' style='padding:0px' class='btn btn-outline-danger'>Remove?</button>
                                 </form>
                             </div>
+                            <br><br><br>
                         </div>
 
-
+                    {% endif %}
 
                 {% endfor %}
                 <br><br>
