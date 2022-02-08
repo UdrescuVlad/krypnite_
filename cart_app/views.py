@@ -98,7 +98,6 @@ def checkout_redirect(request):
             print(status_order)
             request.session['no_of_items'] = 0
             del request.session['cart_id']
-            # return redirect("cart:success")
             return render(request, "checkout_done.html", {"order": order_obj})
 
     context={
@@ -111,12 +110,5 @@ def checkout_redirect(request):
 
 
 def checkout_paid(request):
-    cart_obj, new_cart = Cart.objects.new_or_get(request)
-    billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(user=request.user,email=request.user.email)
-    order_obj, order_obj_created = OrderCheckout.objects.new_or_get(billing_profile, cart_obj)
-    context={
-        'order': order_obj,
-        'billing_profile': billing_profile,
-    }
-    
     return render(request, "checkout_done.html", {})
+

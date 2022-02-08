@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if my_orders.exists %}
+    <br><br>
+    <div class="container-fluid" style="height: max-content; width: 90%; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);">
+        <div>
+            <div style="background-color: #fff;">
+                <div class="title">
+                    <h4>Order history</h4>
+                </div>
+                <div style="float: left">
+                    <div class="btn-group">
+                        <a href="/krypnite/products">Back to products products page</a>
+                    </div>
+                </div>
+                <br>
+                {% for order in my_orders.all %}
+
+
+
+                        <div class="row border-top border-bottom" style="height: 20%;">
+                            <div class="row-cols-md-3" style="align-self: center;">{{forloop.counter}}</div>
+                            <br>
+                            <div class="col" style="align-self: center;">{{order.order_ext_id}}</div>
+                            <div class="col" style="align-self: center;">
+                                {% for product in order.cart.products.all %}
+                                    <p>{{forloop.counter}}.{{product.product_name}}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="col" style="align-self: center;">
+                                $ {{order.total}}
+                            </div>
+                            <div class="col" style="align-self: center;">
+                                Status: {{order.status}}
+                            </div>
+                            <div class="col" style="align-self: center;">
+                                <form method = 'POST' action='{% url "cart:favupdate" %}' class = 'form-inline my-2 my-lg-2'> {% csrf_token %}
+                                    <input type='hidden' name='product_id' value='{{ product.id }}'/> 
+                                    <button type='submit' style='padding:0px' class='btn btn-outline-danger'>Remove?</button>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+                {% endfor %}
+                <br><br>
+                
+            </div>
+        </div>
+    </div>
+    
+{% else %}
+    <h1>Order history is empty</h1>
+    <div class="btn-group">
+        <a href="/krypnite/products" class="btn btn-outline-danger active">
+            Back to products products page
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
