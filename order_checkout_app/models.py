@@ -7,7 +7,7 @@ from django.db.models.signals import pre_save, post_save
 from address_app.models import Address
 
 from billing_app.models import BillingProfile
-from .utils import unique_random_order_id
+from .utils import unique_random_order_ext_id, unique_random_order_id
 from cart_app.models import Cart
 
 ORDER_STATUS = (
@@ -33,6 +33,7 @@ class OrderCheckoutManager(models.Manager):
 class OrderCheckout(models.Model):
     billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=200, blank=True)
+    order_ext_id = models.CharField(max_length=200,blank=True, null=True)
     cart = models.ForeignKey(Cart, null=True, blank=True, on_delete=models.CASCADE)
     shipping_address = models.ForeignKey(Address, related_name='shipping_address', null=True, blank=True, on_delete=models.CASCADE)
     billing_address = models.ForeignKey(Address, related_name='billing_address', null=True, blank=True, on_delete=models.CASCADE)
@@ -64,6 +65,9 @@ class OrderCheckout(models.Model):
     def order_status_payed(self):
         if self.is_client_fill_bill_data():
             self.status = 'payed'
+            self.order_ext_id = unique_random_order_ext_id(OrderCheckout)
+            print("--------------------------------------")
+            print(self.order_ext_id)
             self.save()
         return self.status
     
@@ -76,7 +80,7 @@ def pre_save_create_order_id(sender, instance, *args, **kwargs):
     #   daca nu am un order id, creeaza-mi unul
     if not instance.order_id:
         instance.order_id = unique_random_order_id(instance)
-    #   daca imi gasesti un order dupa card obj acesta si sa fie si activ, punemi-l pe false. Fac acest lucru ca sa previn crearea multipla de ordere intr-o sesiune
+    #   daca imi gasesti un order dupa cart obj acesta si sa fie si activ, punemi-l pe false. Fac acest lucru ca sa previn crearea multipla de ordere intr-o sesiune
     #   in caz ca dau refresh, o data sau de mai multe ori
     old_order = OrderCheckout.objects.exclude(billing_profile=instance.billing_profile).filter(cart=instance.cart, active=True)
     if old_order.exists():
