@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 
-from admin_dash_app.forms import ProductForm
-from krypniteweb.models import Product
+from admin_dash_app.forms import OrderCheckoutForm, ProductForm
+from order_checkout_app.models import OrderCheckout
+from django.db.models import Q
 
 #   https://docs.djangoproject.com/en/4.0/topics/auth/default/#django.contrib.auth.decorators.user_passes_test
 #   https://docs.djangoproject.com/en/4.0/ref/contrib/auth/#django.contrib.auth.models.User.has_perm
@@ -32,8 +33,22 @@ def addProduct(request):
 
 @user_passes_test(verify_user_is_superuser)
 def changeOrderStatus(request):
-    
+    #   am nevoie de 2 field-uri: un input unde user-ul va introduce ext_id si un dropdown de status
+
+    get_all_ext_id = OrderCheckout.objects.all()
+    change_status_form = OrderCheckoutForm(request.POST or None)
+
+    if change_status_form.is_valid():
+        order_ext_id = change_status_form.cleaned_data.get("order_ext_id")
+        status = change_status_form.cleaned_data.get("status")
+        query_set = OrderCheckout.objects.filter(Q(order_ext_id__exact=order_ext_id))
+        if query_set is not None:
+            OrderCheckout.objects.filter(order_ext_id=order_ext_id).update(status=status)
+            change_status_form = OrderCheckoutForm()
+            
     context = {
+        "get_all_ext_id": get_all_ext_id,
+        "change_status_form": change_status_form
     }
     return render(request, 'change_order_status.html', context)
 

@@ -1,1 +1,53 @@
-<h3>Shipping - Change order status</h3>
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="display-4" style="float:center" >Shipping - Change order status</h3>
+
+{% load crispy_forms_tags %}
+<form action="{% url 'admin-dash:changeOrderStatus' %}" method="POST">
+    {% csrf_token %}
+    <div class="container mb-5">
+        {{ change_status_form|crispy }}
+    </div>
+    <div class='let_me_enter'>
+        <button class="w-100 btn btn-primary" type="submit">Change AWB status</button>
+    </div>
+</form>
+
+<!-- <input type="text" id="tags"> -->
+
+<!-- 
+<form method='POST' action='{% url "search:byProductName" %}' class="form-inline my-2 my-lg-2">
+    <div class="input-group">
+        <input class="form-control" type="search" placeholder="Search over 100,000 products" name='q' aria-label="Search" style="width: 300pt;">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+        </span>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+    </div>
+</form> -->
+
+
+<!-- <script>
+    $( function() {
+        var availableTags = [
+            {% for id in get_all_ext_id %}
+                "{{id.order_ext_id}}"
+            {% endfor %}
+        ];
+        $( "#tags" ).autocomplete({
+            source: availableTags
+        });
+    });
+</script> -->
+
+{% endblock %}
