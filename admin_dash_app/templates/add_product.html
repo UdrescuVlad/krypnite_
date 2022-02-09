@@ -1,0 +1,16 @@
+ {% extends 'base.html' %}
+{% block content %}
+
+<h3 class="display-4" style="float:center">Add product</h3>
+{% load crispy_forms_tags %}
+<form action="{% url 'admin-dash:addProduct' %}" method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="container mb-5">
+        {{ add_product_form|crispy }}
+    </div>
+    <div class='let_me_enter'>
+        <button class="w-100 btn btn-primary" type="submit">Add this product</button>
+    </div>
+</form>
+
+{% endblock %}

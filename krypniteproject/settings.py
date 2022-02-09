@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'order_checkout_app',
     'billing_app',
     'address_app',
+    'admin_dash_app',
     'crispy_forms',
     'crispy_bootstrap5'
 ]

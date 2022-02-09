@@ -69,13 +69,16 @@
                       <a class="nav-link" href="{% url 'cart:favhome' %}">Favourite list</a>
                     </div>
                   </li>
-                  <li class = "nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Dashboard</a>
-                    <div class="dropdown-menu dropdown-large">
-                      <a class="nav-link" href="{% url 'order:history' %}">Add a product on Krypnite</a>
-                      <a class="nav-link" href="{% url 'order:tracking' %}">Update order status</a>
-                    </div>
-                  </li>
+                  {% if request.user.is_superuser %}
+                    <li class = "nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin Dashboard</a>
+                      <div class="dropdown-menu dropdown-large">
+                        <a class="nav-link" href="{% url 'admin-dash:addProduct' %}">Add a product on Krypnite</a>
+                        <a class="nav-link" href="{% url 'admin-dash:changeOrderStatus' %}">Update order status</a>
+                        <a class="nav-link" href="{% url 'admin-dash:viewUsers' %}">Update order status</a>
+                      </div>
+                    </li>
+                  {% endif %}
                 </ul>
             </div>
 
